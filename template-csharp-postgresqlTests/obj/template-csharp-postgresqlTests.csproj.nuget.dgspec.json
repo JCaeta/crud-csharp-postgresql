@@ -1,0 +1,151 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresqlTests\\template-csharp-postgresqlTests.csproj": {}
+  },
+  "projects": {
+    "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresqlTests\\template-csharp-postgresqlTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresqlTests\\template-csharp-postgresqlTests.csproj",
+        "projectName": "template-csharp-postgresqlTests",
+        "projectPath": "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresqlTests\\template-csharp-postgresqlTests.csproj",
+        "packagesPath": "C:\\Users\\joaqu\\.nuget\\packages\\",
+        "outputPath": "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresqlTests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\joaqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": ".NETCoreApp,Version=v3.1",
+            "projectReferences": {
+              "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresql\\template-csharp-postgresql.csproj": {
+                "projectPath": "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresql\\template-csharp-postgresql.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": ".NETCoreApp,Version=v3.1",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[2.2.3, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.2.3, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.9.4, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresql\\template-csharp-postgresql.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresql\\template-csharp-postgresql.csproj",
+        "projectName": "template-csharp-postgresql",
+        "projectPath": "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresql\\template-csharp-postgresql.csproj",
+        "packagesPath": "C:\\Users\\joaqu\\.nuget\\packages\\",
+        "outputPath": "D:\\documents storage\\repositories\\Reusables\\template-csharp-postgresql\\template-csharp-postgresql\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\joaqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.9.4, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WindowsForms": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

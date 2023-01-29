@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "template-csharp-postgresql": {
+      "commandName": "Project"
+    }
+  }
+}
