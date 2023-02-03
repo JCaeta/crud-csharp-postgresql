@@ -11,7 +11,7 @@ namespace template_csharp_postgresql.Persistence
         T create(T item);
         bool update(T item);
         bool delete(T item);
-        List<T> find(T item);
-        T findOne(T item);
+        List<T> find(T filter);
+        T findOne(T filter);
     }
 }

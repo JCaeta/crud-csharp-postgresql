@@ -21,7 +21,7 @@ namespace template_csharp_postgresql
             this.unitOfWork.connect();
             EntityB entityB = new EntityB(name);
             entityB = this.unitOfWork.insertEntityB(entityB);
-            ui.loadNewEntityB(int.Parse(entityB.Id.ToString()), entityB.Name);
+            ui.loadNewEntityBInGridSearch(int.Parse(entityB.Id.ToString()), entityB.Name);
             this.unitOfWork.disconnect();
         }
 
@@ -66,6 +66,43 @@ namespace template_csharp_postgresql
                 count += 1;
             }
             return data;
+        }
+
+        public void insertEntityA(Form1 ui, DataTable dtEntititesB, string name)
+        {
+            EntityA entityA = new EntityA(name);
+            List<EntityB> entitiesB = new List<EntityB>();
+            foreach(DataRow row in dtEntititesB.Rows)
+            {
+                EntityB entityB = new EntityB(int.Parse(row["id"].ToString()), row["name"].ToString());
+                entitiesB.Add(entityB);
+            }
+            entityA.EntitiesB = entitiesB;
+
+            this.unitOfWork.connect();
+            entityA = this.unitOfWork.insertEntityA(entityA);
+            this.unitOfWork.disconnect();
+        }
+
+        public void getAllEntitiesA()
+        {
+            //DataTable entitiesA = new DataTable();
+            //this.unitOfWork.connect();
+            ////List<EntityB> entitiesA = this.unitOfWork.
+            ////this.unitOfWork.disconnect();
+
+            //// Load datatable
+            //data.Columns.Add("id");
+            //data.Columns.Add("name");
+            //int count = 0;
+            //foreach (EntityB entityB in entitiesB)
+            //{
+            //    data.Rows.Add();
+            //    data.Rows[count]["id"] = entityB.Id;
+            //    data.Rows[count]["name"] = entityB.Name;
+            //    count += 1;
+            //}
+            //return data;
         }
     }
 }

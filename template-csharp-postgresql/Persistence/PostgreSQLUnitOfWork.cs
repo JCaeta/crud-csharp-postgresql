@@ -5,6 +5,7 @@ using System.Text;
 using template_csharp_postgresql;
 using template_csharp_postgresql.Persistence.Repositories;
 using template_csharp_postgresql.Entities;
+using template_csharp_postgresql.Persistence.Repositories.FindStrategiesEntityB;
 
 namespace template_csharp_postgresql.Persistence
 {
@@ -16,7 +17,7 @@ namespace template_csharp_postgresql.Persistence
             "; Password = " + Globals.PASSWORD + 
             "; Database = " + Globals.DATABASE_NAME;
         private NpgsqlConnection connection ;
-         
+
         public void connect()
         {
             this.connection = new NpgsqlConnection(this.connectionString);
@@ -35,31 +36,77 @@ namespace template_csharp_postgresql.Persistence
 
         public EntityB insertEntityB(EntityB entityB)
         {
-            EntityBRepository<EntityB> entityBRepository = new Repositories.EntityBRepository<EntityB>(this.connection);
-            entityB = entityBRepository.create(entityB);
+            using(NpgsqlTransaction transaction = this.connection.BeginTransaction())
+            {
+                EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection, transaction);
+                entityB = entityBRepository.create(entityB);
+            }
             return entityB;
         }
 
         public bool deleteEntityB(int id)
         {
+
             EntityB entityB = new EntityB(id);
-            EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection);
-            return entityBRepository.delete(entityB);
+            bool result = false;
+            using (NpgsqlTransaction transaction = this.connection.BeginTransaction())
+            {
+                EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection, transaction);
+                result = entityBRepository.delete(entityB);
+
+            }
+            return result;
         }
 
         public bool updateEntityB(EntityB item)
         {
-            EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection);
-            return entityBRepository.update(item);
+            bool result = false;
+            using (NpgsqlTransaction transaction = this.connection.BeginTransaction())
+            {
+                EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection, transaction);
+                result = entityBRepository.update(item);
+            }
+            return result;
         }
 
         public List<EntityB> getAllEntitiesB()
         {
-            EntityB entityB = new EntityB(-1, "");
-            EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection);
-            List<EntityB> entitiesB = entityBRepository.find(entityB);
+            List<EntityB> entitiesB;
+            using (NpgsqlTransaction transaction = this.connection.BeginTransaction())
+            {
+                EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection, transaction);
+                FindAll<EntityB> findStrategy = new FindAll<EntityB>();
+                entityBRepository.setFindStrategy(findStrategy);
+                entitiesB = entityBRepository.find(new EntityB());
+            }
+
             return entitiesB;
+        }
+
+        public List<EntityA> getAllEntitiesA() {
+            EntityA filter = new EntityA(-1, "");
+            List<EntityA> entitiesA;
+            using (NpgsqlTransaction transaction = this.connection.BeginTransaction())
+            {
+                EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection, transaction);
+                entitiesA = entityARepository.find(filter);
+            }
+
+            return entitiesA;
 
         }
+
+        public EntityA insertEntityA(EntityA item)
+        {
+            using(NpgsqlTransaction transaction = this.connection.BeginTransaction())
+            {
+                EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection, transaction);
+                entityARepository.create(item);
+            }
+
+            return item;
+        }
+
+        //public List<EntityA> 
     }
 }

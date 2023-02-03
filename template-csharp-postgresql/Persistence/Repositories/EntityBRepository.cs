@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using template_csharp_postgresql.Entities;
+//using Npgsql;
 
 namespace template_csharp_postgresql.Persistence.Repositories
 {
@@ -10,9 +11,12 @@ namespace template_csharp_postgresql.Persistence.Repositories
     where EntityB : template_csharp_postgresql.Entities.EntityB, new()
     {
         private NpgsqlConnection connection;
-        public EntityBRepository(NpgsqlConnection connection)
+        private IFindStrategy<EntityB> findStrategy;
+        private NpgsqlTransaction transaction;
+        public EntityBRepository(NpgsqlConnection connection, NpgsqlTransaction transaction)
         {
             this.connection = connection;
+            this.transaction = transaction;
         }
 
         public EntityB create(EntityB item)
@@ -39,29 +43,33 @@ namespace template_csharp_postgresql.Persistence.Repositories
             }
         }
 
-        public List<EntityB> find(EntityB item)
+        public List<EntityB> find(EntityB filter)
         {
-            List<EntityB> entitiesB = new List<EntityB>();
-            string query = "select ";
-            if (item.Id == -1 && item.Name == "")
-            {
-                query += " * from entities_b;";
-            }
-
-            NpgsqlCommand executor = new NpgsqlCommand(query, this.connection);
-            NpgsqlDataReader result = executor.ExecuteReader();
-
-            while (result.Read())
-            {
-                System.Int32 id = result.GetInt32(0);
-                string name = result.GetString(1);
-                EntityB entityB = new EntityB();
-                entityB.Id = id;
-                entityB.Name = name;
-                entitiesB.Add(entityB);
-            }
-
+            List<EntityB> entitiesB;
+            entitiesB = this.findStrategy.find(this.connection, this.transaction);
             return entitiesB;
+
+            //List<EntityB> entitiesB = new List<EntityB>();
+            //string query = "select ";
+            //if (item.Id == -1 && item.Name == "")
+            //{
+            //    query += " * from entities_b;";
+            //}
+
+            //NpgsqlCommand executor = new NpgsqlCommand(query, this.connection);
+            //NpgsqlDataReader result = executor.ExecuteReader();
+
+            //while (result.Read())
+            //{
+            //    System.Int32 id = result.GetInt32(0);
+            //    string name = result.GetString(1);
+            //    EntityB entityB = new EntityB();
+            //    entityB.Id = id;
+            //    entityB.Name = name;
+            //    entitiesB.Add(entityB);
+            //}
+
+            //return entitiesB;
         }
 
         public EntityB findOne(EntityB item)
@@ -81,6 +89,11 @@ namespace template_csharp_postgresql.Persistence.Repositories
             {
                 return false;
             }
+        }
+
+        public void setFindStrategy(IFindStrategy<EntityB> findStrategy)
+        {
+            this.findStrategy = findStrategy;
         }
     }
 }

@@ -18,13 +18,22 @@ namespace template_csharp_postgresql.Persistence.Repositories.Tests
             EntityB entityB = new EntityB();
             entityB.Name = "Test name 1";
 
+            string connectionString =
+            "Server = " + Globals.SERVER +
+            "; User Id = " + Globals.USER_ID +
+            "; Password = " + Globals.PASSWORD +
+            "; Database = " + Globals.DATABASE_NAME;
+
+
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
-            unitOfWork.connect();
-            NpgsqlConnection conn = unitOfWork.getConnection();
+            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
 
+            using (NpgsqlTransaction transaction = connection.BeginTransaction())
+            {
+                EntityBRepository<EntityB> repository = new EntityBRepository<EntityB>(connection, transaction);
+                repository.create(entityB);
+            }
 
-            EntityBRepository<EntityB> repository = new EntityBRepository<EntityB>(conn);
-            repository.create(entityB);
 
             unitOfWork.disconnect();
 

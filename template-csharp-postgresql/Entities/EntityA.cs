@@ -33,5 +33,11 @@ namespace template_csharp_postgresql.Entities
             this.Name = name;
             this.EntitiesB = entitiesB;
         }
+
+        public EntityA(int id, string name)
+        {
+            this.Id = id;
+            this.Name = name;
+        }
     }
 }
