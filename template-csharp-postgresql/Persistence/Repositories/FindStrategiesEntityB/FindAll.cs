@@ -8,14 +8,14 @@ namespace template_csharp_postgresql.Persistence.Repositories.FindStrategiesEnti
     public class FindAll<EntityB> : IFindStrategy<EntityB>
     where EntityB : template_csharp_postgresql.Entities.EntityB, new()
     {
-        public List<EntityB> find(NpgsqlConnection connection, NpgsqlTransaction transaction)
+        public List<EntityB> find(NpgsqlConnection connection)
         {
             List<EntityB> entitiesB = new List<EntityB>();
 
             // 1) Execute query
             string query = "select * from entitiesB;";
             NpgsqlDataReader result;
-            using (NpgsqlCommand executor = new NpgsqlCommand(query, connection, transaction))
+            using (NpgsqlCommand executor = new NpgsqlCommand(query, connection))
             {
                 result = executor.ExecuteReader();
             }

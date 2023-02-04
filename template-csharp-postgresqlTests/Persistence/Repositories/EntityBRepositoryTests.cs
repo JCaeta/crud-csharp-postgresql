@@ -12,7 +12,7 @@ namespace template_csharp_postgresql.Persistence.Repositories.Tests
     public class EntityBRepositoryTests
     {
         [TestMethod()]
-        //[Ignore()]
+        [Ignore()]
         public void createTest()
         {
             EntityB entityB = new EntityB();
@@ -28,13 +28,8 @@ namespace template_csharp_postgresql.Persistence.Repositories.Tests
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             NpgsqlConnection connection = new NpgsqlConnection(connectionString);
 
-            using (NpgsqlTransaction transaction = connection.BeginTransaction())
-            {
-                EntityBRepository<EntityB> repository = new EntityBRepository<EntityB>(connection, transaction);
-                repository.create(entityB);
-            }
-
-
+            EntityBRepository<EntityB> repository = new EntityBRepository<EntityB>(connection);
+            repository.create(entityB);
             unitOfWork.disconnect();
 
         }

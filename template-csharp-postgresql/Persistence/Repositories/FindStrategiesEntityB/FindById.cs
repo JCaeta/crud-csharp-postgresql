@@ -10,7 +10,7 @@ namespace template_csharp_postgresql.Persistence.Repositories.FindStrategiesEnti
     where EntityB : template_csharp_postgresql.Entities.EntityB, new()
     {
         List<int> ids; 
-        public List<EntityB> find(NpgsqlConnection connection, NpgsqlTransaction transaction)
+        public List<EntityB> find(NpgsqlConnection connection)
         {
             List<EntityB> entitiesB = new List<EntityB>();
             if (this.ids.Count > 0)
@@ -18,7 +18,7 @@ namespace template_csharp_postgresql.Persistence.Repositories.FindStrategiesEnti
                 // 1) Execute query
                 string query = this.buildQuery();
                 NpgsqlDataReader result;
-                using(NpgsqlCommand executor = new NpgsqlCommand(query, connection, transaction))
+                using(NpgsqlCommand executor = new NpgsqlCommand(query, connection))
                 {
                     result = executor.ExecuteReader();
                 }

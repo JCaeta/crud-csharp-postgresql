@@ -9,14 +9,14 @@ namespace template_csharp_postgresql.Persistence.Repositories
     public class EntityARepository<EntityA> : IRepository<EntityA>
     where EntityA : template_csharp_postgresql.Entities.EntityA
     {
-        NpgsqlConnection connection;
-        NpgsqlTransaction transaction;
-      
+        private NpgsqlConnection connection;
+        //NpgsqlTransaction transaction;
+        private IFindStrategy<EntityA> findStrategy;
 
-        public EntityARepository(NpgsqlConnection connection, NpgsqlTransaction transaction)
+        public EntityARepository(NpgsqlConnection connection)
         {
             this.connection = connection;
-            this.transaction = transaction;
+            //this.transaction = transaction;
         }
 
         public EntityA create(EntityA item)
@@ -25,8 +25,8 @@ namespace template_csharp_postgresql.Persistence.Repositories
             //{
                 try
                 {
-                    //using (var command = new NpgsqlCommand("INSERT INTO entities_a (name) VALUES (@name) returning id;", connection, transaction))
-                    using (var command = new NpgsqlCommand("INSERT INTO entities_a (name) VALUES (@name) returning id;", connection, this.transaction))
+                    //using (var command = new NpgsqlCommand("INSERT INTO entities_a (name) VALUES (@name) returning id;", connection, this.transaction))
+                    using (var command = new NpgsqlCommand("INSERT INTO entities_a (name) VALUES (@name) returning id;", connection, transaction))
                     {
                         command.Parameters.AddWithValue("@name", item.Name);
                         item.Id = System.Int32.Parse(command.ExecuteScalar().ToString());
@@ -61,39 +61,15 @@ namespace template_csharp_postgresql.Persistence.Repositories
             throw new NotImplementedException();
         }
 
+        public void setFindStrategy(IFindStrategy<EntityA> findStrategy)
+        {
+            this.findStrategy = findStrategy;
+        }
+
+
         public List<EntityA> find(EntityA filter)
         {
-            // Get entities A
-            List<EntityA> entitiesA = new List<EntityA>();
-
-
-            //string query = "select ";
-            //if (item.Id == -1 && item.Name == "")
-            //{
-            //    query += " * from entities_a;";
-            //}
-
-            //NpgsqlCommand executor = new NpgsqlCommand(query, this.connection);
-            //NpgsqlDataReader result = executor.ExecuteReader();
-
-            //// Get the relationship between entities a and b
-            //// Search in rel_entities_a_entities_b table
-
-            //if (item.Id == -1 && item.Name == "")
-            //{
-            //    query += " * from entities_a;";
-            //}
-            //while (result.Read())
-            //{
-            //    System.Int32 id = result.GetInt32(0);
-            //    string name = result.GetString(1);
-            //    EntityB entityB = new EntityB();
-            //    entityB.Id = id;
-            //    entityB.Name = name;
-            //    entitiesB.Add(entityB);
-            //}
-
-            return entitiesA;
+            return this.findStrategy.find(this.connection);
         }
 
         public EntityA findOne(EntityA filter)

@@ -29,7 +29,7 @@ namespace template_csharp_postgresql.Persistence.Repositories.FindStrategiesEnti
             {
                 FindById<EntityB> findById = new FindById<EntityB>();
                 findById.setIds(ids);
-                entitiesB = findById.find(connection, transaction);
+                entitiesB = findById.find(connection);
             }
 
             //IFindStrategy<EntityB> findById = new FindById<EntityB>();

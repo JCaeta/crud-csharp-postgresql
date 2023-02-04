@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace template_csharp_postgresql
 {
     public partial class Form1 : Form
@@ -32,29 +33,32 @@ namespace template_csharp_postgresql
             this.entitiesBMap.Columns.Add("index-grid-search");
             this.entitiesBMap.Columns.Add("index-checked-list-box");
         }
-
         private void loadData()
         {
-            DataTable entitiesB = this.controller.getAllEntitiesB();
-            this.initializeEntitiesBTrackDataTable();
-            int count = 0;
-            foreach(DataRow row in entitiesB.Rows)
-            {
-                this.entitiesBMap.Rows.Add();
-                this.entitiesBMap.Rows[count]["id"] = row["id"];
-                this.entitiesBMap.Rows[count]["name"] = row["name"];
-                this.entitiesBMap.Rows[count]["index-grid-search"] = count;
-                this.entitiesBMap.Rows[count]["index-checked-list-box"] = count;
+            Dictionary
 
-                // Load search entity B grid
-                this.gridSearchEntityB.Rows.Add();
-                this.gridSearchEntityB.Rows[count].Cells["id"].Value = row["id"];
-                this.gridSearchEntityB.Rows[count].Cells["name"].Value = row["name"];
 
-                // Load associated entity b checkbox in entityA insert section
-                this.checkedListBoxEntititesB.Items.Add(row["name"], false);
-                count += 1;
-            }
+
+            //DataTable entitiesB = this.controller.getAllEntitiesB();
+            //this.initializeEntitiesBTrackDataTable();
+            //int count = 0;
+            //foreach(DataRow row in entitiesB.Rows)
+            //{
+            //    this.entitiesBMap.Rows.Add();
+            //    this.entitiesBMap.Rows[count]["id"] = row["id"];
+            //    this.entitiesBMap.Rows[count]["name"] = row["name"];
+            //    this.entitiesBMap.Rows[count]["index-grid-search"] = count;
+            //    this.entitiesBMap.Rows[count]["index-checked-list-box"] = count;
+
+            //    // Load search entity B grid
+            //    this.gridSearchEntityB.Rows.Add();
+            //    this.gridSearchEntityB.Rows[count].Cells["id"].Value = row["id"];
+            //    this.gridSearchEntityB.Rows[count].Cells["name"].Value = row["name"];
+
+            //    // Load associated entity b checkbox in entityA insert section
+            //    this.checkedListBoxEntititesB.Items.Add(row["name"], false);
+            //    count += 1;
+            //}
         }
 
         private void insertEntityB(object sender, EventArgs e)

@@ -84,25 +84,52 @@ namespace template_csharp_postgresql
             this.unitOfWork.disconnect();
         }
 
-        public void getAllEntitiesA()
+        public List<EntityA> getAllEntitiesA()
         {
-            //DataTable entitiesA = new DataTable();
-            //this.unitOfWork.connect();
-            ////List<EntityB> entitiesA = this.unitOfWork.
-            ////this.unitOfWork.disconnect();
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            List<EntityA> entitiesA = this.unitOfWork.getAllEntitiesA();
+            unitOfWork.disconnect();
 
-            //// Load datatable
-            //data.Columns.Add("id");
-            //data.Columns.Add("name");
-            //int count = 0;
-            //foreach (EntityB entityB in entitiesB)
-            //{
-            //    data.Rows.Add();
-            //    data.Rows[count]["id"] = entityB.Id;
-            //    data.Rows[count]["name"] = entityB.Name;
-            //    count += 1;
-            //}
-            //return data;
+            Dictionary<int, DataTable> dataEntitiesB = new Dictionary<int, DataTable>();// Dictionary for entitiesB
+            DataTable dataEntitiesA = new DataTable();
+            dataEntitiesA.Columns.Add("id");
+            dataEntitiesA.Columns.Add("name");
+
+            Dictionary<string, DataTable> dataEntities = new Dictionary<string, DataTable>(); // Dictionary for both entities a and b datatables
+
+            int countA = 0;
+            foreach (EntityA entityA in entitiesA)
+            {
+                // Load entitiesB
+                if (!dataEntitiesB.ContainsKey(entityA.Id))
+                {
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("id");
+                    dt.Columns.Add("name");
+                    dataEntitiesB.Add(entityA.Id, dt);
+                }
+                int countB = 0;
+                foreach (EntityB entityB in entityA.EntitiesB)
+                {
+                    dataEntitiesB[entityA.Id].Rows.Add();
+                    dataEntitiesB[entityA.Id].Rows[countB]["id"] = entityB.Id;
+                    dataEntitiesB[entityA.Id].Rows[countB]["name"] = entityB.Name;
+                    countB++;
+                }
+
+                // Load entitiesA
+                dataEntitiesA.Rows.Add();
+                dataEntitiesA.Rows[countB]["id"] = entityA.Id;
+                dataEntitiesA.Rows[countB]["name"] = entityA.Name;
+                countA++;
+            }
+            dataEntities.Add("A", dataEntitiesA);
+            dataEntities.Add("B", dataEntitiesB);
+
+            return entitiesA;
         }
+
+
     }
 }

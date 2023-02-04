@@ -8,7 +8,7 @@ namespace template_csharp_postgresql.Entities
 {
     public class EntityA
     {
-        public System.Int64 Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public List<EntityB> EntitiesB { get; set; }
 
