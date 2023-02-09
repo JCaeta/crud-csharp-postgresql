@@ -22,10 +22,9 @@ namespace template_csharp_postgresql.Persistence.Repositories
         public EntityA create(EntityA item)
         {
             using (var transaction = connection.BeginTransaction())
-            //{
+                //{
                 try
                 {
-                    //using (var command = new NpgsqlCommand("INSERT INTO entities_a (name) VALUES (@name) returning id;", connection, this.transaction))
                     using (var command = new NpgsqlCommand("INSERT INTO entities_a (name) VALUES (@name) returning id;", connection, transaction))
                     {
                         command.Parameters.AddWithValue("@name", item.Name);
@@ -58,7 +57,26 @@ namespace template_csharp_postgresql.Persistence.Repositories
 
         public bool delete(EntityA item)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            using (NpgsqlTransaction transaction = this.connection.BeginTransaction())
+            {
+                try
+                {
+                    string query1 = "delete from rel_entities_a_entities_b where id_entity_a = " + item.Id;
+                    string query2 = "delete from entities_a where id = " + item.Id;
+                    string fullQuery = query1 + ";" + query2 + ";";
+                    NpgsqlCommand executor = new NpgsqlCommand(fullQuery, this.connection, transaction);
+                    var reader = executor.ExecuteReader();
+                    reader.Close();
+                    transaction.Commit();
+                    result = true;
+                }catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+            return result;
         }
 
         public void setFindStrategy(IFindStrategy<EntityA> findStrategy)
@@ -79,7 +97,34 @@ namespace template_csharp_postgresql.Persistence.Repositories
 
         public bool update(EntityA item)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            // Create queries
+            string query1 = "delete from rel_entities_a_entities_b where id_entity_a = " + item.Id + ";";
+            string query2 = "update entities_a set name = '" + item.Name + "' where id = " + item.Id + ";";
+            string query3 = "";
+            foreach(EntityB entityB in item.EntitiesB)
+            {
+                string qry = "insert into rel_entities_a_entities_b(id_entity_a, id_entity_b) values (" + item.Id + ", " + entityB.Id + ");";
+                query3 += qry;
+            }
+            
+            using(NpgsqlTransaction transaction = this.connection.BeginTransaction())
+            {
+                try
+                {
+                    NpgsqlCommand executor = new NpgsqlCommand(query1 + query2 + query3, this.connection, transaction);
+                    NpgsqlDataReader r = executor.ExecuteReader();
+                    r.Close();
+                    transaction.Commit();
+                    result = true;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return result;
         }
     }
 }

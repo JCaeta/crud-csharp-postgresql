@@ -48,22 +48,28 @@ namespace template_csharp_postgresql
             this.buttonUpdateEntityB = new System.Windows.Forms.Button();
             this.buttonSearchEntityA = new System.Windows.Forms.Button();
             this.lblSearchNameEntityA = new System.Windows.Forms.Label();
-            this.textBoxEntityASearch = new System.Windows.Forms.TextBox();
+            this.textBoxNameFilterA = new System.Windows.Forms.TextBox();
             this.lblEntityASearch = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.gridEntitiesBAssociatedEntitiesA = new System.Windows.Forms.DataGridView();
             this.lblAssociatedEntitiesB = new System.Windows.Forms.Label();
             this.buttonUpdateEntityA = new System.Windows.Forms.Button();
             this.buttonDeleteEntityA = new System.Windows.Forms.Button();
             this.lblSearchNameEntityB0 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxEntBNameFilterA = new System.Windows.Forms.TextBox();
+            this.buttonClearEntityA = new System.Windows.Forms.Button();
+            this.buttonClearEntityB = new System.Windows.Forms.Button();
+            this.groupInsert = new System.Windows.Forms.GroupBox();
+            this.groupFilterUpdateDelete = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridSearchEntityB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridSearchEntityA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridEntitiesBAssociatedEntitiesA)).BeginInit();
+            this.groupInsert.SuspendLayout();
+            this.groupFilterUpdateDelete.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonInsertEntityA
             // 
-            this.buttonInsertEntityA.Location = new System.Drawing.Point(155, 192);
+            this.buttonInsertEntityA.Location = new System.Drawing.Point(149, 195);
             this.buttonInsertEntityA.Name = "buttonInsertEntityA";
             this.buttonInsertEntityA.Size = new System.Drawing.Size(75, 23);
             this.buttonInsertEntityA.TabIndex = 0;
@@ -74,7 +80,7 @@ namespace template_csharp_postgresql
             // labelEntityA
             // 
             this.labelEntityA.AutoSize = true;
-            this.labelEntityA.Location = new System.Drawing.Point(173, 15);
+            this.labelEntityA.Location = new System.Drawing.Point(167, 18);
             this.labelEntityA.Name = "labelEntityA";
             this.labelEntityA.Size = new System.Drawing.Size(48, 15);
             this.labelEntityA.TabIndex = 1;
@@ -83,7 +89,7 @@ namespace template_csharp_postgresql
             // labelEntityB
             // 
             this.labelEntityB.AutoSize = true;
-            this.labelEntityB.Location = new System.Drawing.Point(370, 15);
+            this.labelEntityB.Location = new System.Drawing.Point(408, 18);
             this.labelEntityB.Name = "labelEntityB";
             this.labelEntityB.Size = new System.Drawing.Size(47, 15);
             this.labelEntityB.TabIndex = 2;
@@ -91,7 +97,7 @@ namespace template_csharp_postgresql
             // 
             // textBoxNameEntityA
             // 
-            this.textBoxNameEntityA.Location = new System.Drawing.Point(129, 42);
+            this.textBoxNameEntityA.Location = new System.Drawing.Point(123, 45);
             this.textBoxNameEntityA.Name = "textBoxNameEntityA";
             this.textBoxNameEntityA.Size = new System.Drawing.Size(133, 23);
             this.textBoxNameEntityA.TabIndex = 3;
@@ -99,21 +105,21 @@ namespace template_csharp_postgresql
             // checkedListBoxEntititesB
             // 
             this.checkedListBoxEntititesB.FormattingEnabled = true;
-            this.checkedListBoxEntititesB.Location = new System.Drawing.Point(129, 80);
+            this.checkedListBoxEntititesB.Location = new System.Drawing.Point(123, 83);
             this.checkedListBoxEntititesB.Name = "checkedListBoxEntititesB";
             this.checkedListBoxEntititesB.Size = new System.Drawing.Size(133, 94);
             this.checkedListBoxEntititesB.TabIndex = 5;
             // 
             // textBoxNameEntityB
             // 
-            this.textBoxNameEntityB.Location = new System.Drawing.Point(316, 42);
+            this.textBoxNameEntityB.Location = new System.Drawing.Point(354, 45);
             this.textBoxNameEntityB.Name = "textBoxNameEntityB";
             this.textBoxNameEntityB.Size = new System.Drawing.Size(152, 23);
             this.textBoxNameEntityB.TabIndex = 6;
             // 
             // buttonInsertEntityB
             // 
-            this.buttonInsertEntityB.Location = new System.Drawing.Point(348, 192);
+            this.buttonInsertEntityB.Location = new System.Drawing.Point(390, 195);
             this.buttonInsertEntityB.Name = "buttonInsertEntityB";
             this.buttonInsertEntityB.Size = new System.Drawing.Size(75, 23);
             this.buttonInsertEntityB.TabIndex = 7;
@@ -124,7 +130,7 @@ namespace template_csharp_postgresql
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(84, 50);
+            this.label1.Location = new System.Drawing.Point(78, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 15);
             this.label1.TabIndex = 8;
@@ -133,7 +139,7 @@ namespace template_csharp_postgresql
             // labelEntityBAssociated
             // 
             this.labelEntityBAssociated.AutoSize = true;
-            this.labelEntityBAssociated.Location = new System.Drawing.Point(21, 80);
+            this.labelEntityBAssociated.Location = new System.Drawing.Point(15, 83);
             this.labelEntityBAssociated.Name = "labelEntityBAssociated";
             this.labelEntityBAssociated.Size = new System.Drawing.Size(102, 15);
             this.labelEntityBAssociated.TabIndex = 9;
@@ -144,7 +150,7 @@ namespace template_csharp_postgresql
             this.gridSearchEntityB.AllowUserToAddRows = false;
             this.gridSearchEntityB.AllowUserToDeleteRows = false;
             this.gridSearchEntityB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridSearchEntityB.Location = new System.Drawing.Point(316, 339);
+            this.gridSearchEntityB.Location = new System.Drawing.Point(354, 113);
             this.gridSearchEntityB.MultiSelect = false;
             this.gridSearchEntityB.Name = "gridSearchEntityB";
             this.gridSearchEntityB.ReadOnly = true;
@@ -156,24 +162,28 @@ namespace template_csharp_postgresql
             // lblEntityBSearch
             // 
             this.lblEntityBSearch.AutoSize = true;
-            this.lblEntityBSearch.Location = new System.Drawing.Point(316, 258);
+            this.lblEntityBSearch.Location = new System.Drawing.Point(354, 32);
             this.lblEntityBSearch.Name = "lblEntityBSearch";
-            this.lblEntityBSearch.Size = new System.Drawing.Size(84, 15);
+            this.lblEntityBSearch.Size = new System.Drawing.Size(74, 15);
             this.lblEntityBSearch.TabIndex = 11;
-            this.lblEntityBSearch.Text = "Entity B search";
+            this.lblEntityBSearch.Text = "Entity B filter";
             // 
             // gridSearchEntityA
             // 
+            this.gridSearchEntityA.AllowUserToAddRows = false;
+            this.gridSearchEntityA.AllowUserToDeleteRows = false;
             this.gridSearchEntityA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridSearchEntityA.Location = new System.Drawing.Point(61, 377);
+            this.gridSearchEntityA.Location = new System.Drawing.Point(55, 146);
             this.gridSearchEntityA.Name = "gridSearchEntityA";
+            this.gridSearchEntityA.ReadOnly = true;
             this.gridSearchEntityA.RowTemplate.Height = 25;
             this.gridSearchEntityA.Size = new System.Drawing.Size(201, 115);
             this.gridSearchEntityA.TabIndex = 12;
+            this.gridSearchEntityA.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clickEntityA);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(361, 281);
+            this.textBox1.Location = new System.Drawing.Point(399, 55);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(107, 23);
             this.textBox1.TabIndex = 13;
@@ -181,7 +191,7 @@ namespace template_csharp_postgresql
             // lblSearchNameEntityB1
             // 
             this.lblSearchNameEntityB1.AutoSize = true;
-            this.lblSearchNameEntityB1.Location = new System.Drawing.Point(316, 285);
+            this.lblSearchNameEntityB1.Location = new System.Drawing.Point(354, 59);
             this.lblSearchNameEntityB1.Name = "lblSearchNameEntityB1";
             this.lblSearchNameEntityB1.Size = new System.Drawing.Size(42, 15);
             this.lblSearchNameEntityB1.TabIndex = 14;
@@ -189,16 +199,16 @@ namespace template_csharp_postgresql
             // 
             // buttonSearchEntityB
             // 
-            this.buttonSearchEntityB.Location = new System.Drawing.Point(393, 310);
+            this.buttonSearchEntityB.Location = new System.Drawing.Point(354, 84);
             this.buttonSearchEntityB.Name = "buttonSearchEntityB";
             this.buttonSearchEntityB.Size = new System.Drawing.Size(75, 23);
             this.buttonSearchEntityB.TabIndex = 16;
-            this.buttonSearchEntityB.Text = "Search";
+            this.buttonSearchEntityB.Text = "Filter";
             this.buttonSearchEntityB.UseVisualStyleBackColor = true;
             // 
             // buttondelete
             // 
-            this.buttondelete.Location = new System.Drawing.Point(316, 464);
+            this.buttondelete.Location = new System.Drawing.Point(354, 238);
             this.buttondelete.Name = "buttondelete";
             this.buttondelete.Size = new System.Drawing.Size(75, 23);
             this.buttondelete.TabIndex = 17;
@@ -208,7 +218,7 @@ namespace template_csharp_postgresql
             // 
             // buttonUpdateEntityB
             // 
-            this.buttonUpdateEntityB.Location = new System.Drawing.Point(393, 464);
+            this.buttonUpdateEntityB.Location = new System.Drawing.Point(431, 238);
             this.buttonUpdateEntityB.Name = "buttonUpdateEntityB";
             this.buttonUpdateEntityB.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdateEntityB.TabIndex = 18;
@@ -218,51 +228,56 @@ namespace template_csharp_postgresql
             // 
             // buttonSearchEntityA
             // 
-            this.buttonSearchEntityA.Location = new System.Drawing.Point(187, 339);
+            this.buttonSearchEntityA.Location = new System.Drawing.Point(100, 113);
             this.buttonSearchEntityA.Name = "buttonSearchEntityA";
             this.buttonSearchEntityA.Size = new System.Drawing.Size(75, 23);
             this.buttonSearchEntityA.TabIndex = 22;
-            this.buttonSearchEntityA.Text = "Search";
+            this.buttonSearchEntityA.Text = "Filter";
             this.buttonSearchEntityA.UseVisualStyleBackColor = true;
+            this.buttonSearchEntityA.Click += new System.EventHandler(this.filterEntityA);
             // 
             // lblSearchNameEntityA
             // 
             this.lblSearchNameEntityA.AutoSize = true;
-            this.lblSearchNameEntityA.Location = new System.Drawing.Point(61, 285);
+            this.lblSearchNameEntityA.Location = new System.Drawing.Point(55, 59);
             this.lblSearchNameEntityA.Name = "lblSearchNameEntityA";
             this.lblSearchNameEntityA.Size = new System.Drawing.Size(86, 15);
             this.lblSearchNameEntityA.TabIndex = 21;
             this.lblSearchNameEntityA.Text = "Name entity A:";
             // 
-            // textBoxEntityASearch
+            // textBoxNameFilterA
             // 
-            this.textBoxEntityASearch.Location = new System.Drawing.Point(155, 281);
-            this.textBoxEntityASearch.Name = "textBoxEntityASearch";
-            this.textBoxEntityASearch.Size = new System.Drawing.Size(107, 23);
-            this.textBoxEntityASearch.TabIndex = 20;
+            this.textBoxNameFilterA.Location = new System.Drawing.Point(149, 55);
+            this.textBoxNameFilterA.Name = "textBoxNameFilterA";
+            this.textBoxNameFilterA.Size = new System.Drawing.Size(107, 23);
+            this.textBoxNameFilterA.TabIndex = 20;
             // 
             // lblEntityASearch
             // 
             this.lblEntityASearch.AutoSize = true;
-            this.lblEntityASearch.Location = new System.Drawing.Point(62, 258);
+            this.lblEntityASearch.Location = new System.Drawing.Point(56, 32);
             this.lblEntityASearch.Name = "lblEntityASearch";
-            this.lblEntityASearch.Size = new System.Drawing.Size(85, 15);
+            this.lblEntityASearch.Size = new System.Drawing.Size(75, 15);
             this.lblEntityASearch.TabIndex = 19;
-            this.lblEntityASearch.Text = "Entity A search";
+            this.lblEntityASearch.Text = "Entity A filter";
             // 
-            // dataGridView1
+            // gridEntitiesBAssociatedEntitiesA
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(61, 518);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(201, 61);
-            this.dataGridView1.TabIndex = 23;
+            this.gridEntitiesBAssociatedEntitiesA.AllowUserToAddRows = false;
+            this.gridEntitiesBAssociatedEntitiesA.AllowUserToDeleteRows = false;
+            this.gridEntitiesBAssociatedEntitiesA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridEntitiesBAssociatedEntitiesA.Location = new System.Drawing.Point(55, 287);
+            this.gridEntitiesBAssociatedEntitiesA.Name = "gridEntitiesBAssociatedEntitiesA";
+            this.gridEntitiesBAssociatedEntitiesA.ReadOnly = true;
+            this.gridEntitiesBAssociatedEntitiesA.RowTemplate.Height = 25;
+            this.gridEntitiesBAssociatedEntitiesA.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridEntitiesBAssociatedEntitiesA.Size = new System.Drawing.Size(201, 89);
+            this.gridEntitiesBAssociatedEntitiesA.TabIndex = 23;
             // 
             // lblAssociatedEntitiesB
             // 
             this.lblAssociatedEntitiesB.AutoSize = true;
-            this.lblAssociatedEntitiesB.Location = new System.Drawing.Point(61, 500);
+            this.lblAssociatedEntitiesB.Location = new System.Drawing.Point(55, 269);
             this.lblAssociatedEntitiesB.Name = "lblAssociatedEntitiesB";
             this.lblAssociatedEntitiesB.Size = new System.Drawing.Size(115, 15);
             this.lblAssociatedEntitiesB.TabIndex = 24;
@@ -270,77 +285,122 @@ namespace template_csharp_postgresql
             // 
             // buttonUpdateEntityA
             // 
-            this.buttonUpdateEntityA.Location = new System.Drawing.Point(187, 585);
+            this.buttonUpdateEntityA.Location = new System.Drawing.Point(181, 382);
             this.buttonUpdateEntityA.Name = "buttonUpdateEntityA";
             this.buttonUpdateEntityA.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdateEntityA.TabIndex = 26;
             this.buttonUpdateEntityA.Text = "Update";
             this.buttonUpdateEntityA.UseVisualStyleBackColor = true;
+            this.buttonUpdateEntityA.Click += new System.EventHandler(this.updateEntityA);
             // 
             // buttonDeleteEntityA
             // 
-            this.buttonDeleteEntityA.Location = new System.Drawing.Point(110, 585);
+            this.buttonDeleteEntityA.Location = new System.Drawing.Point(104, 382);
             this.buttonDeleteEntityA.Name = "buttonDeleteEntityA";
             this.buttonDeleteEntityA.Size = new System.Drawing.Size(75, 23);
             this.buttonDeleteEntityA.TabIndex = 25;
             this.buttonDeleteEntityA.Text = "Delete";
             this.buttonDeleteEntityA.UseVisualStyleBackColor = true;
+            this.buttonDeleteEntityA.Click += new System.EventHandler(this.deleteEntityA);
             // 
             // lblSearchNameEntityB0
             // 
             this.lblSearchNameEntityB0.AutoSize = true;
-            this.lblSearchNameEntityB0.Location = new System.Drawing.Point(61, 314);
+            this.lblSearchNameEntityB0.Location = new System.Drawing.Point(55, 88);
             this.lblSearchNameEntityB0.Name = "lblSearchNameEntityB0";
             this.lblSearchNameEntityB0.Size = new System.Drawing.Size(85, 15);
             this.lblSearchNameEntityB0.TabIndex = 27;
             this.lblSearchNameEntityB0.Text = "Name entity B:";
             // 
-            // textBox2
+            // textBoxEntBNameFilterA
             // 
-            this.textBox2.Location = new System.Drawing.Point(155, 310);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(107, 23);
-            this.textBox2.TabIndex = 28;
+            this.textBoxEntBNameFilterA.Location = new System.Drawing.Point(149, 84);
+            this.textBoxEntBNameFilterA.Name = "textBoxEntBNameFilterA";
+            this.textBoxEntBNameFilterA.Size = new System.Drawing.Size(107, 23);
+            this.textBoxEntBNameFilterA.TabIndex = 28;
+            // 
+            // buttonClearEntityA
+            // 
+            this.buttonClearEntityA.Location = new System.Drawing.Point(181, 113);
+            this.buttonClearEntityA.Name = "buttonClearEntityA";
+            this.buttonClearEntityA.Size = new System.Drawing.Size(75, 23);
+            this.buttonClearEntityA.TabIndex = 29;
+            this.buttonClearEntityA.Text = "Clear";
+            this.buttonClearEntityA.UseVisualStyleBackColor = true;
+            // 
+            // buttonClearEntityB
+            // 
+            this.buttonClearEntityB.Location = new System.Drawing.Point(431, 84);
+            this.buttonClearEntityB.Name = "buttonClearEntityB";
+            this.buttonClearEntityB.Size = new System.Drawing.Size(75, 23);
+            this.buttonClearEntityB.TabIndex = 30;
+            this.buttonClearEntityB.Text = "Clear";
+            this.buttonClearEntityB.UseVisualStyleBackColor = true;
+            // 
+            // groupInsert
+            // 
+            this.groupInsert.Controls.Add(this.labelEntityBAssociated);
+            this.groupInsert.Controls.Add(this.label1);
+            this.groupInsert.Controls.Add(this.buttonInsertEntityB);
+            this.groupInsert.Controls.Add(this.textBoxNameEntityB);
+            this.groupInsert.Controls.Add(this.checkedListBoxEntititesB);
+            this.groupInsert.Controls.Add(this.textBoxNameEntityA);
+            this.groupInsert.Controls.Add(this.labelEntityB);
+            this.groupInsert.Controls.Add(this.labelEntityA);
+            this.groupInsert.Controls.Add(this.buttonInsertEntityA);
+            this.groupInsert.Location = new System.Drawing.Point(6, 5);
+            this.groupInsert.Name = "groupInsert";
+            this.groupInsert.Size = new System.Drawing.Size(570, 252);
+            this.groupInsert.TabIndex = 31;
+            this.groupInsert.TabStop = false;
+            this.groupInsert.Text = "Create";
+            // 
+            // groupFilterUpdateDelete
+            // 
+            this.groupFilterUpdateDelete.Controls.Add(this.buttonClearEntityB);
+            this.groupFilterUpdateDelete.Controls.Add(this.buttonClearEntityA);
+            this.groupFilterUpdateDelete.Controls.Add(this.textBoxEntBNameFilterA);
+            this.groupFilterUpdateDelete.Controls.Add(this.lblSearchNameEntityB0);
+            this.groupFilterUpdateDelete.Controls.Add(this.buttonUpdateEntityA);
+            this.groupFilterUpdateDelete.Controls.Add(this.buttonDeleteEntityA);
+            this.groupFilterUpdateDelete.Controls.Add(this.lblAssociatedEntitiesB);
+            this.groupFilterUpdateDelete.Controls.Add(this.gridEntitiesBAssociatedEntitiesA);
+            this.groupFilterUpdateDelete.Controls.Add(this.buttonSearchEntityA);
+            this.groupFilterUpdateDelete.Controls.Add(this.lblSearchNameEntityA);
+            this.groupFilterUpdateDelete.Controls.Add(this.textBoxNameFilterA);
+            this.groupFilterUpdateDelete.Controls.Add(this.lblEntityASearch);
+            this.groupFilterUpdateDelete.Controls.Add(this.buttonUpdateEntityB);
+            this.groupFilterUpdateDelete.Controls.Add(this.buttondelete);
+            this.groupFilterUpdateDelete.Controls.Add(this.buttonSearchEntityB);
+            this.groupFilterUpdateDelete.Controls.Add(this.lblSearchNameEntityB1);
+            this.groupFilterUpdateDelete.Controls.Add(this.textBox1);
+            this.groupFilterUpdateDelete.Controls.Add(this.gridSearchEntityA);
+            this.groupFilterUpdateDelete.Controls.Add(this.lblEntityBSearch);
+            this.groupFilterUpdateDelete.Controls.Add(this.gridSearchEntityB);
+            this.groupFilterUpdateDelete.Location = new System.Drawing.Point(6, 275);
+            this.groupFilterUpdateDelete.Name = "groupFilterUpdateDelete";
+            this.groupFilterUpdateDelete.Size = new System.Drawing.Size(569, 426);
+            this.groupFilterUpdateDelete.TabIndex = 32;
+            this.groupFilterUpdateDelete.TabStop = false;
+            this.groupFilterUpdateDelete.Text = "Filter, Update and Delete";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 723);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.lblSearchNameEntityB0);
-            this.Controls.Add(this.buttonUpdateEntityA);
-            this.Controls.Add(this.buttonDeleteEntityA);
-            this.Controls.Add(this.lblAssociatedEntitiesB);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.buttonSearchEntityA);
-            this.Controls.Add(this.lblSearchNameEntityA);
-            this.Controls.Add(this.textBoxEntityASearch);
-            this.Controls.Add(this.lblEntityASearch);
-            this.Controls.Add(this.buttonUpdateEntityB);
-            this.Controls.Add(this.buttondelete);
-            this.Controls.Add(this.buttonSearchEntityB);
-            this.Controls.Add(this.lblSearchNameEntityB1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.gridSearchEntityA);
-            this.Controls.Add(this.lblEntityBSearch);
-            this.Controls.Add(this.gridSearchEntityB);
-            this.Controls.Add(this.labelEntityBAssociated);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonInsertEntityB);
-            this.Controls.Add(this.textBoxNameEntityB);
-            this.Controls.Add(this.checkedListBoxEntititesB);
-            this.Controls.Add(this.textBoxNameEntityA);
-            this.Controls.Add(this.labelEntityB);
-            this.Controls.Add(this.labelEntityA);
-            this.Controls.Add(this.buttonInsertEntityA);
+            this.ClientSize = new System.Drawing.Size(610, 741);
+            this.Controls.Add(this.groupFilterUpdateDelete);
+            this.Controls.Add(this.groupInsert);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.gridSearchEntityB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridSearchEntityA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridEntitiesBAssociatedEntitiesA)).EndInit();
+            this.groupInsert.ResumeLayout(false);
+            this.groupInsert.PerformLayout();
+            this.groupFilterUpdateDelete.ResumeLayout(false);
+            this.groupFilterUpdateDelete.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -365,13 +425,17 @@ namespace template_csharp_postgresql
         private System.Windows.Forms.Button buttonUpdateEntityB;
         private System.Windows.Forms.Button buttonSearchEntityA;
         private System.Windows.Forms.Label lblSearchNameEntityA;
-        private System.Windows.Forms.TextBox textBoxEntityASearch;
+        private System.Windows.Forms.TextBox textBoxNameFilterA;
         private System.Windows.Forms.Label lblEntityASearch;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView gridEntitiesBAssociatedEntitiesA;
         private System.Windows.Forms.Label lblAssociatedEntitiesB;
         private System.Windows.Forms.Button buttonUpdateEntityA;
         private System.Windows.Forms.Button buttonDeleteEntityA;
         private System.Windows.Forms.Label lblSearchNameEntityB0;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxEntBNameFilterA;
+        private System.Windows.Forms.Button buttonClearEntityA;
+        private System.Windows.Forms.Button buttonClearEntityB;
+        private System.Windows.Forms.GroupBox groupInsert;
+        private System.Windows.Forms.GroupBox groupFilterUpdateDelete;
     }
 }

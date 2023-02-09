@@ -9,50 +9,62 @@ namespace template_csharp_postgresql
 {
     public class Controller
     {
-        private PostgreSQLUnitOfWork unitOfWork;
-
-        public Controller()
-        {
-            this.unitOfWork = new PostgreSQLUnitOfWork();
-        }
-
         public void insertEntityB(Form1 ui, string name)
         {
-            this.unitOfWork.connect();
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
             EntityB entityB = new EntityB(name);
-            entityB = this.unitOfWork.insertEntityB(entityB);
+            entityB = unitOfWork.insertEntityB(entityB);
             ui.loadNewEntityBInGridSearch(int.Parse(entityB.Id.ToString()), entityB.Name);
-            this.unitOfWork.disconnect();
+            unitOfWork.disconnect();
         }
 
         public void deleteEntityB(Form1 ui, int id, int index)
         {
-            this.unitOfWork.connect();
-            bool result = this.unitOfWork.deleteEntityB(id);
-            this.unitOfWork.disconnect();
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            bool result = unitOfWork.deleteEntityB(id);
+            unitOfWork.disconnect();
             if (result)
             {
                 ui.deleteEntityBFromGrid(index);
             }
         }
 
+
+        public void deleteEntityA(Form1 ui, int id, int index)
+        {
+            EntityA entityA = new EntityA(id);
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            bool result = unitOfWork.deleteEntityA(entityA);
+            unitOfWork.disconnect();
+
+            if (result)
+            {
+                ui.deleteEntityAFromGrid(index, id);
+            }
+        }
+
         public void updateEntityB(Form1 ui, int id, string name, int index)
         {
             EntityB entityB = new EntityB(id, name);
-            this.unitOfWork.connect();
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
             if (unitOfWork.updateEntityB(entityB))
             {
                 ui.replaceEntityBInGrid(index, id, name);
             }
-            this.unitOfWork.disconnect();
+            unitOfWork.disconnect();
         }
 
         public DataTable getAllEntitiesB()
         {
             DataTable data = new DataTable();
-            this.unitOfWork.connect();
-            List<EntityB> entitiesB = this.unitOfWork.getAllEntitiesB();
-            this.unitOfWork.disconnect();
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            List<EntityB> entitiesB = unitOfWork.getAllEntitiesB();
+            unitOfWork.disconnect();
 
             // Load datatable
             data.Columns.Add("id");
@@ -79,35 +91,50 @@ namespace template_csharp_postgresql
             }
             entityA.EntitiesB = entitiesB;
 
-            this.unitOfWork.connect();
-            entityA = this.unitOfWork.insertEntityA(entityA);
-            this.unitOfWork.disconnect();
-        }
-
-        public List<EntityA> getAllEntitiesA()
-        {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            List<EntityA> entitiesA = this.unitOfWork.getAllEntitiesA();
+            entityA = unitOfWork.insertEntityA(entityA);
+            unitOfWork.disconnect();
+        }
+
+        public Dictionary<string, Dictionary<int, DataTable>> getAllEntitiesA()
+        {
+            // Returns a dictionary
+            //{"A": {entAid, [{idEntA, name}]},
+            // "B": {entAid: [{idEntB1, name1}, {idEntB2, name2}, ...]}}
+
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            List<EntityA> entitiesA = unitOfWork.getAllEntitiesA();
             unitOfWork.disconnect();
 
+            // Convert entities object to DataTables and Dictionary
+            // those are the data types the gui will handle
             Dictionary<int, DataTable> dataEntitiesB = new Dictionary<int, DataTable>();// Dictionary for entitiesB
-            DataTable dataEntitiesA = new DataTable();
-            dataEntitiesA.Columns.Add("id");
-            dataEntitiesA.Columns.Add("name");
+            Dictionary<int, DataTable> dataEntitiesA = new Dictionary<int, DataTable>(); // Dictionary for entitiesA
+            Dictionary<string, Dictionary<int, DataTable>> dataEntities = new Dictionary<string, Dictionary<int, DataTable>>(); // Dictionary for both entities A and B
 
-            Dictionary<string, DataTable> dataEntities = new Dictionary<string, DataTable>(); // Dictionary for both entities a and b datatables
-
-            int countA = 0;
             foreach (EntityA entityA in entitiesA)
             {
-                // Load entitiesB
+                // Convert entitiesB
                 if (!dataEntitiesB.ContainsKey(entityA.Id))
                 {
-                    DataTable dt = new DataTable();
-                    dt.Columns.Add("id");
-                    dt.Columns.Add("name");
-                    dataEntitiesB.Add(entityA.Id, dt);
+                    // Create entitiesB datatable
+                    DataTable dtEntitiesB = new DataTable();
+                    dtEntitiesB.Columns.Add("id");
+                    dtEntitiesB.Columns.Add("name");
+                    dataEntitiesB.Add(entityA.Id, dtEntitiesB);
+
+                    // Create entitiesA datatable
+                    DataTable dtEntitiesA = new DataTable();
+                    dtEntitiesA.Columns.Add("id");
+                    dtEntitiesA.Columns.Add("name");
+
+                    // Convert entities A
+                    dtEntitiesA.Rows.Add();
+                    dtEntitiesA.Rows[0]["id"] = entityA.Id;
+                    dtEntitiesA.Rows[0]["name"] = entityA.Name;
+                    dataEntitiesA.Add(entityA.Id, dtEntitiesA);
                 }
                 int countB = 0;
                 foreach (EntityB entityB in entityA.EntitiesB)
@@ -117,19 +144,68 @@ namespace template_csharp_postgresql
                     dataEntitiesB[entityA.Id].Rows[countB]["name"] = entityB.Name;
                     countB++;
                 }
-
-                // Load entitiesA
-                dataEntitiesA.Rows.Add();
-                dataEntitiesA.Rows[countB]["id"] = entityA.Id;
-                dataEntitiesA.Rows[countB]["name"] = entityA.Name;
-                countA++;
             }
             dataEntities.Add("A", dataEntitiesA);
             dataEntities.Add("B", dataEntitiesB);
-
-            return entitiesA;
+            return dataEntities;
         }
 
+        public void updateEntityA(Form1 ui, Dictionary<string, DataTable> dataEntityA)
+        {
+            // 1) Convert data to EntityA object
+            EntityA entityA = new EntityA();
+            entityA.Id = int.Parse(dataEntityA["A"].Rows[0]["id"].ToString());
+            entityA.Name = dataEntityA["A"].Rows[0]["name"].ToString();
 
+            foreach(DataRow row in dataEntityA["B"].Rows)
+            {
+                EntityB entityB = new EntityB();
+                entityB.Id = int.Parse(row["id"].ToString());
+                entityB.Name = row["name"].ToString();
+
+                entityA.EntitiesB.Add(entityB);
+            }
+
+            // 2) Update in database
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            bool result = unitOfWork.updateEntityA(entityA);
+            unitOfWork.disconnect();
+
+            if (result)
+            {
+                ui.loadEntitiesA();
+            }
+        }
+
+        public void filterEntityAOption1(string entityBName)
+        {
+            // Find by EntityB name
+            PostgreSQLUnitOfWork unitOfwork = new PostgreSQLUnitOfWork();
+            unitOfwork.connect();
+
+            unitOfwork.disconnect();
+
+        }
+
+        public void filterEntityAOption2(string entityAName)
+        {
+            // Find by EntityA name
+            PostgreSQLUnitOfWork unitOfwork = new PostgreSQLUnitOfWork();
+            unitOfwork.connect();
+
+            unitOfwork.disconnect();
+
+        }
+
+        public void filterEntityAOption3(string entityAName, string entityBName)
+        {
+            // Find by EntityA name and EntityB name
+            PostgreSQLUnitOfWork unitOfwork = new PostgreSQLUnitOfWork();
+            unitOfwork.connect();
+
+            unitOfwork.disconnect();
+
+        }
     }
 }

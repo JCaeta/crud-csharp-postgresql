@@ -23,7 +23,7 @@ namespace template_csharp_postgresql.Persistence.Repositories.FindStrategiesEnti
 
             NpgsqlConnection connection = new NpgsqlConnection(this.connectionString);
             connection.Open();
-            FindAll<EntityA> findAll = new FindAll<EntityA>();
+            FindAllEntitiesA<EntityA> findAll = new FindAllEntitiesA<EntityA>();
             List<EntityA> entitiesA = findAll.find(connection);
             connection.Close();
             if (entitiesA.Count == 0)

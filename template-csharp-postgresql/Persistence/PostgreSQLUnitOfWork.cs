@@ -6,6 +6,7 @@ using template_csharp_postgresql;
 using template_csharp_postgresql.Persistence.Repositories;
 using template_csharp_postgresql.Entities;
 using template_csharp_postgresql.Persistence.Repositories.FindStrategiesEntityB;
+using template_csharp_postgresql.Persistence.Repositories.FindStrategiesEntityA;
 
 namespace template_csharp_postgresql.Persistence
 {
@@ -65,7 +66,7 @@ namespace template_csharp_postgresql.Persistence
         {
             List<EntityB> entitiesB;
             EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection);
-            FindAll<EntityB> findStrategy = new FindAll<EntityB>();
+            FindAllEntitiesB<EntityB> findStrategy = new FindAllEntitiesB<EntityB>();
             entityBRepository.setFindStrategy(findStrategy);
             entitiesB = entityBRepository.find(new EntityB());
 
@@ -74,10 +75,11 @@ namespace template_csharp_postgresql.Persistence
 
         public List<EntityA> getAllEntitiesA() {
 
-            EntityA filter = new EntityA(-1, "");
             List<EntityA> entitiesA;
             EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            entitiesA = entityARepository.find(filter);
+            FindAllEntitiesA<EntityA> findStrategy = new FindAllEntitiesA<EntityA>();
+            entityARepository.setFindStrategy(findStrategy);
+            entitiesA = entityARepository.find(new EntityA());
 
             return entitiesA;
         }
@@ -88,6 +90,51 @@ namespace template_csharp_postgresql.Persistence
             entityARepository.create(item);
 
             return item;
+        }
+
+        public bool deleteEntityA(EntityA item)
+        {
+            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
+            return entityARepository.delete(item);
+        }
+
+        public bool updateEntityA(EntityA item)
+        {
+            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
+            return entityARepository.update(item);
+        }
+
+        public List<EntityA> filterEntityAOption1(string entityBName)
+        {
+            // This option finds by EntityB name
+            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
+            FindStrategy1<EntityA> findStrategy = new FindStrategy1<EntityA>();
+            findStrategy.setFilter(entityBName);
+            entityARepository.setFindStrategy(findStrategy);
+
+            return entityARepository.find(new EntityA());
+        }
+
+        public List<EntityA> filterEntityAOption2(string entityAName)
+        {
+            // This option finds by EntityA name
+            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
+            FindStrategy2<EntityA> findStrategy = new FindStrategy2<EntityA>();
+            findStrategy.setFilter(entityAName);
+            entityARepository.setFindStrategy(findStrategy);
+
+            return entityARepository.find(new EntityA());
+        }
+
+        public List<EntityA> filterEntityAOption3(string entityAName)
+        {
+            // This option finds by EntityA name and EntityB name
+            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
+            FindStrategy3<EntityA> findStrategy = new FindStrategy3<EntityA>();
+            findStrategy.setFilter(entityAName);
+            entityARepository.setFindStrategy(findStrategy);
+
+            return entityARepository.find(new EntityA());
         }
     }
 }

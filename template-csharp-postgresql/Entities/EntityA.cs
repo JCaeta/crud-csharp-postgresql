@@ -10,6 +10,7 @@ namespace template_csharp_postgresql.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
         public List<EntityB> EntitiesB { get; set; }
 
         public EntityA()
@@ -38,6 +39,12 @@ namespace template_csharp_postgresql.Entities
         {
             this.Id = id;
             this.Name = name;
+            this.EntitiesB = new List<EntityB>();
+        }
+        public EntityA(int id)
+        {
+            this.Id = id;
+            this.EntitiesB = new List<EntityB>();
         }
     }
 }
