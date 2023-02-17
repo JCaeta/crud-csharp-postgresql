@@ -126,12 +126,12 @@ namespace template_csharp_postgresql.Persistence
             return entityARepository.find(new EntityA());
         }
 
-        public List<EntityA> filterEntityAOption3(string entityAName)
+        public List<EntityA> filterEntityAOption3(string entityAName, string entityBName)
         {
             // This option finds by EntityA name and EntityB name
             EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
             FindStrategy3<EntityA> findStrategy = new FindStrategy3<EntityA>();
-            findStrategy.setFilter(entityAName);
+            findStrategy.setFilter(entityAName, entityBName);
             entityARepository.setFindStrategy(findStrategy);
 
             return entityARepository.find(new EntityA());

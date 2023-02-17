@@ -156,7 +156,7 @@ namespace template_csharp_postgresql
             this.gridSearchEntityB.ReadOnly = true;
             this.gridSearchEntityB.RowTemplate.Height = 25;
             this.gridSearchEntityB.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridSearchEntityB.Size = new System.Drawing.Size(152, 119);
+            this.gridSearchEntityB.Size = new System.Drawing.Size(199, 168);
             this.gridSearchEntityB.TabIndex = 10;
             // 
             // lblEntityBSearch
@@ -208,7 +208,7 @@ namespace template_csharp_postgresql
             // 
             // buttondelete
             // 
-            this.buttondelete.Location = new System.Drawing.Point(354, 238);
+            this.buttondelete.Location = new System.Drawing.Point(354, 287);
             this.buttondelete.Name = "buttondelete";
             this.buttondelete.Size = new System.Drawing.Size(75, 23);
             this.buttondelete.TabIndex = 17;
@@ -218,7 +218,7 @@ namespace template_csharp_postgresql
             // 
             // buttonUpdateEntityB
             // 
-            this.buttonUpdateEntityB.Location = new System.Drawing.Point(431, 238);
+            this.buttonUpdateEntityB.Location = new System.Drawing.Point(431, 287);
             this.buttonUpdateEntityB.Name = "buttonUpdateEntityB";
             this.buttonUpdateEntityB.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdateEntityB.TabIndex = 18;
@@ -271,7 +271,7 @@ namespace template_csharp_postgresql
             this.gridEntitiesBAssociatedEntitiesA.ReadOnly = true;
             this.gridEntitiesBAssociatedEntitiesA.RowTemplate.Height = 25;
             this.gridEntitiesBAssociatedEntitiesA.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridEntitiesBAssociatedEntitiesA.Size = new System.Drawing.Size(201, 89);
+            this.gridEntitiesBAssociatedEntitiesA.Size = new System.Drawing.Size(201, 131);
             this.gridEntitiesBAssociatedEntitiesA.TabIndex = 23;
             // 
             // lblAssociatedEntitiesB
@@ -285,7 +285,7 @@ namespace template_csharp_postgresql
             // 
             // buttonUpdateEntityA
             // 
-            this.buttonUpdateEntityA.Location = new System.Drawing.Point(181, 382);
+            this.buttonUpdateEntityA.Location = new System.Drawing.Point(181, 424);
             this.buttonUpdateEntityA.Name = "buttonUpdateEntityA";
             this.buttonUpdateEntityA.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdateEntityA.TabIndex = 26;
@@ -295,7 +295,7 @@ namespace template_csharp_postgresql
             // 
             // buttonDeleteEntityA
             // 
-            this.buttonDeleteEntityA.Location = new System.Drawing.Point(104, 382);
+            this.buttonDeleteEntityA.Location = new System.Drawing.Point(104, 424);
             this.buttonDeleteEntityA.Name = "buttonDeleteEntityA";
             this.buttonDeleteEntityA.Size = new System.Drawing.Size(75, 23);
             this.buttonDeleteEntityA.TabIndex = 25;
@@ -379,7 +379,7 @@ namespace template_csharp_postgresql
             this.groupFilterUpdateDelete.Controls.Add(this.gridSearchEntityB);
             this.groupFilterUpdateDelete.Location = new System.Drawing.Point(6, 275);
             this.groupFilterUpdateDelete.Name = "groupFilterUpdateDelete";
-            this.groupFilterUpdateDelete.Size = new System.Drawing.Size(569, 426);
+            this.groupFilterUpdateDelete.Size = new System.Drawing.Size(569, 471);
             this.groupFilterUpdateDelete.TabIndex = 32;
             this.groupFilterUpdateDelete.TabStop = false;
             this.groupFilterUpdateDelete.Text = "Filter, Update and Delete";
@@ -388,7 +388,7 @@ namespace template_csharp_postgresql
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 741);
+            this.ClientSize = new System.Drawing.Size(610, 779);
             this.Controls.Add(this.groupFilterUpdateDelete);
             this.Controls.Add(this.groupInsert);
             this.Name = "Form1";

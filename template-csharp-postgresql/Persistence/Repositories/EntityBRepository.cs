@@ -21,7 +21,7 @@ namespace template_csharp_postgresql.Persistence.Repositories
         {
             string query = "insert into entities_b(name) values('" + item.Name + "') returning id;";
             NpgsqlCommand executor = new NpgsqlCommand(query, this.connection);
-            System.Int32 result = (System.Int32)executor.ExecuteScalar();
+            int result = int.Parse(executor.ExecuteScalar().ToString());
             item.Id = result;
             return item;
         }

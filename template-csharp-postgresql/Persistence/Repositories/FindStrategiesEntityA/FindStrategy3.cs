@@ -22,7 +22,7 @@ namespace template_csharp_postgresql.Persistence.Repositories.FindStrategiesEnti
             string query = this.buildQuery();
             NpgsqlCommand executor = new NpgsqlCommand(query, connection);
             executor.Parameters.AddWithValue("@entAName", this.entAName);
-            executor.Parameters.AddWithValue("@entBName", this.entbName);
+            executor.Parameters.AddWithValue("@entBName", this.entBName);
             NpgsqlDataReader result = executor.ExecuteReader();
 
             return this.helper.convertNpgsqlDataReaderToListEntityA(result);
@@ -46,6 +46,5 @@ namespace template_csharp_postgresql.Persistence.Repositories.FindStrategiesEnti
                 "join entities_b on entities_b.id = relAB.id_entity_b " +
                 "where entities_a.name = '@entAName' and entities_b.name = '@entBName';";
         }
-    }
     }
 }

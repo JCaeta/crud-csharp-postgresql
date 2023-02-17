@@ -28,6 +28,9 @@ namespace template_csharp_postgresql
             if (result)
             {
                 ui.deleteEntityBFromGrid(index);
+            }else
+            {
+                ui.showWarning("Failed to delete item. Please check if the item is linked to any other entities before attempting to delete.");
             }
         }
 
@@ -55,6 +58,7 @@ namespace template_csharp_postgresql
             {
                 ui.replaceEntityBInGrid(index, id, name);
             }
+
             unitOfWork.disconnect();
         }
 

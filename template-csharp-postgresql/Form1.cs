@@ -14,6 +14,7 @@ namespace template_csharp_postgresql
         private DataTable entitiesBMap; // Maps the entitiesB ids with indexes of grids and list boxes
         private DataTable entitiesB;
         private Dictionary<string, Dictionary<int, DataTable>> dataEntitiesA;
+        private int widthColumns = 155;
 
         public Form1()
         {
@@ -30,13 +31,15 @@ namespace template_csharp_postgresql
             this.gridSearchEntityA.Columns.Add("id", "Id");
             this.gridSearchEntityA.Columns["Id"].Visible = false;
             this.gridSearchEntityA.Columns.Add("name", "Name");
+            this.gridSearchEntityA.Columns["name"].Width = this.widthColumns;
         }
 
         private void initializeGridSearchEntityB()
         {
             this.gridSearchEntityB.Columns.Add("id", "Id");
-            this.gridSearchEntityB.Columns["Id"].Visible = false;
+            this.gridSearchEntityB.Columns["id"].Visible = false;
             this.gridSearchEntityB.Columns.Add("name", "Name");
+            this.gridSearchEntityB.Columns["name"].Width = this.widthColumns;
         }
 
         private void initializeGridEntitiesBAssociatedEntitiesA()
@@ -44,6 +47,7 @@ namespace template_csharp_postgresql
             this.gridEntitiesBAssociatedEntitiesA.Columns.Add("id", "Id");
             this.gridEntitiesBAssociatedEntitiesA.Columns["Id"].Visible = false;
             this.gridEntitiesBAssociatedEntitiesA.Columns.Add("name", "Name");
+            this.gridEntitiesBAssociatedEntitiesA.Columns["name"].Width = this.widthColumns;
         }
 
         private void initializeEntitiesBTrackDataTable()
@@ -140,6 +144,11 @@ namespace template_csharp_postgresql
             }
         }
 
+        public void showWarning(string message)
+        {
+            MessageBox.Show(message);
+        }
+
         public void deleteEntityBFromGrid(int index)
         {
             gridSearchEntityB.Rows.RemoveAt(index);
@@ -213,16 +222,29 @@ namespace template_csharp_postgresql
 
         private void deleteEntityA(object sender, EventArgs e)
         {
-            int rowIndex = this.gridSearchEntityA.CurrentCell.RowIndex;
-            int id = int.Parse(this.gridSearchEntityA.Rows[rowIndex].Cells["id"].Value.ToString());
-            this.controller.deleteEntityA(this, id, rowIndex);
+            if(this.gridSearchEntityA.CurrentCell != null)
+            {
+                int rowIndex = this.gridSearchEntityA.CurrentCell.RowIndex;
+                int id = int.Parse(this.gridSearchEntityA.Rows[rowIndex].Cells["id"].Value.ToString());
+                this.controller.deleteEntityA(this, id, rowIndex);
+            }else
+            {
+                this.showWarning("No row selected. Please select a row and try again.");
+            }
         }
 
         private void updateEntityA(object sender, EventArgs e)
         {
-            Dictionary<string, DataTable> dataEntityA = this.getEntityAToUpdate();
-            UpdateEntityA uiUpdateEntityA = new UpdateEntityA(this, this.controller, dataEntityA);
-            uiUpdateEntityA.ShowDialog();
+            if (this.gridSearchEntityA.CurrentCell != null)
+            {
+                Dictionary<string, DataTable> dataEntityA = this.getEntityAToUpdate();
+                UpdateEntityA uiUpdateEntityA = new UpdateEntityA(this, this.controller, dataEntityA);
+                uiUpdateEntityA.ShowDialog();
+            }
+            else // If there aren't selected rows
+            {
+                this.showWarning("No row selected. Please select a row and try again.");
+            }
         }
 
         private Dictionary<string, DataTable> getEntityAToUpdate()
@@ -244,6 +266,7 @@ namespace template_csharp_postgresql
             // 2) Search data
             // Load entityA 
             int rowIndex = this.gridSearchEntityA.CurrentCell.RowIndex;
+
             int idEntA = int.Parse(this.gridSearchEntityA.Rows[rowIndex].Cells["id"].Value.ToString());
             string nameEntA = this.dataEntitiesA["A"][idEntA].Rows[0]["name"].ToString();
 
@@ -254,7 +277,7 @@ namespace template_csharp_postgresql
 
             // Load entitiesB
             int count = 0;
-            foreach(DataRow row in this.dataEntitiesA["B"][idEntA].Rows)
+            foreach (DataRow row in this.dataEntitiesA["B"][idEntA].Rows)
             {
                 dataEntityA["B"].Rows.Add();
                 dataEntityA["B"].Rows[count]["id"] = row["id"];
@@ -263,7 +286,7 @@ namespace template_csharp_postgresql
 
                 // Delete from allEntitiesB the loaded entityB
                 DataRow[] rToDel = allEntitiesB.Select("[id] = " + row["id"]);
-                if(rToDel.Length > 0)
+                if (rToDel.Length > 0)
                 {
                     rToDel[0].Delete();
                 }
@@ -279,7 +302,6 @@ namespace template_csharp_postgresql
                 dataEntityA["B"].Rows[count]["isAssociated"] = false;
                 count++;
             }
-
             return dataEntityA;
         }
 
