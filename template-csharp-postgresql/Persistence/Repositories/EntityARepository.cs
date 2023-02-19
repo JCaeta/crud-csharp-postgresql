@@ -11,7 +11,7 @@ namespace template_csharp_postgresql.Persistence.Repositories
     {
         private NpgsqlConnection connection;
         //NpgsqlTransaction transaction;
-        private IFindStrategy<EntityA> findStrategy;
+        private IReadStrategy<EntityA> readStrategy;
 
         public EntityARepository(NpgsqlConnection connection)
         {
@@ -79,18 +79,18 @@ namespace template_csharp_postgresql.Persistence.Repositories
             return result;
         }
 
-        public void setFindStrategy(IFindStrategy<EntityA> findStrategy)
+        public void setReadStrategy(IReadStrategy<EntityA> readStrategy)
         {
-            this.findStrategy = findStrategy;
+            this.readStrategy = readStrategy;
         }
 
 
-        public List<EntityA> find(EntityA filter)
+        public List<EntityA> read(EntityA filter)
         {
-            return this.findStrategy.find(this.connection);
+            return this.readStrategy.read(this.connection);
         }
 
-        public EntityA findOne(EntityA filter)
+        public EntityA readOne(EntityA filter)
         {
             throw new NotImplementedException();
         }

@@ -5,8 +5,8 @@ using System.Text;
 using template_csharp_postgresql;
 using template_csharp_postgresql.Persistence.Repositories;
 using template_csharp_postgresql.Entities;
-using template_csharp_postgresql.Persistence.Repositories.FindStrategiesEntityB;
-using template_csharp_postgresql.Persistence.Repositories.FindStrategiesEntityA;
+using template_csharp_postgresql.Persistence.Repositories.ReadStrategiesEntityB;
+using template_csharp_postgresql.Persistence.Repositories.ReadStrategiesEntityA;
 
 namespace template_csharp_postgresql.Persistence
 {
@@ -35,7 +35,7 @@ namespace template_csharp_postgresql.Persistence
             return this.connection;
         }
 
-        public EntityB insertEntityB(EntityB entityB)
+        public EntityB createEntityB(EntityB entityB)
         {
             EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection);
             entityB = entityBRepository.create(entityB);
@@ -66,9 +66,9 @@ namespace template_csharp_postgresql.Persistence
         {
             List<EntityB> entitiesB;
             EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection);
-            FindAllEntitiesB<EntityB> findStrategy = new FindAllEntitiesB<EntityB>();
-            entityBRepository.setFindStrategy(findStrategy);
-            entitiesB = entityBRepository.find(new EntityB());
+            ReadAllEntitiesB<EntityB> readStrategy = new ReadAllEntitiesB<EntityB>();
+            entityBRepository.setReadStrategy(readStrategy);
+            entitiesB = entityBRepository.read(new EntityB());
 
             return entitiesB;
         }
@@ -77,14 +77,14 @@ namespace template_csharp_postgresql.Persistence
 
             List<EntityA> entitiesA;
             EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            FindAllEntitiesA<EntityA> findStrategy = new FindAllEntitiesA<EntityA>();
-            entityARepository.setFindStrategy(findStrategy);
-            entitiesA = entityARepository.find(new EntityA());
+            ReadAllEntitiesA<EntityA> readStrategy = new ReadAllEntitiesA<EntityA>();
+            entityARepository.setReadStrategy(readStrategy);
+            entitiesA = entityARepository.read(new EntityA());
 
             return entitiesA;
         }
 
-        public EntityA insertEntityA(EntityA item)
+        public EntityA createEntityA(EntityA item)
         {
             EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
             entityARepository.create(item);
@@ -106,35 +106,35 @@ namespace template_csharp_postgresql.Persistence
 
         public List<EntityA> filterEntityAOption1(string entityBName)
         {
-            // This option finds by EntityB name
+            // This option reads by EntityB name
             EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            FindStrategy1<EntityA> findStrategy = new FindStrategy1<EntityA>();
-            findStrategy.setFilter(entityBName);
-            entityARepository.setFindStrategy(findStrategy);
+            ReadStrategy1<EntityA> readStrategy = new ReadStrategy1<EntityA>();
+            readStrategy.setFilter(entityBName);
+            entityARepository.setReadStrategy(readStrategy);
 
-            return entityARepository.find(new EntityA());
+            return entityARepository.read(new EntityA());
         }
 
         public List<EntityA> filterEntityAOption2(string entityAName)
         {
-            // This option finds by EntityA name
+            // This option reads by EntityA name
             EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            FindStrategy2<EntityA> findStrategy = new FindStrategy2<EntityA>();
-            findStrategy.setFilter(entityAName);
-            entityARepository.setFindStrategy(findStrategy);
+            ReadStrategy2<EntityA> readStrategy = new ReadStrategy2<EntityA>();
+            readStrategy.setFilter(entityAName);
+            entityARepository.setReadStrategy(readStrategy);
 
-            return entityARepository.find(new EntityA());
+            return entityARepository.read(new EntityA());
         }
 
         public List<EntityA> filterEntityAOption3(string entityAName, string entityBName)
         {
-            // This option finds by EntityA name and EntityB name
+            // This option reads by EntityA name and EntityB name
             EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            FindStrategy3<EntityA> findStrategy = new FindStrategy3<EntityA>();
-            findStrategy.setFilter(entityAName, entityBName);
-            entityARepository.setFindStrategy(findStrategy);
+            ReadStrategy3<EntityA> readStrategy = new ReadStrategy3<EntityA>();
+            readStrategy.setFilter(entityAName, entityBName);
+            entityARepository.setReadStrategy(readStrategy);
 
-            return entityARepository.find(new EntityA());
+            return entityARepository.read(new EntityA());
         }
     }
 }

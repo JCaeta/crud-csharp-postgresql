@@ -9,13 +9,13 @@ namespace template_csharp_postgresql
 {
     public class Controller
     {
-        public void insertEntityB(Form1 ui, string name)
+        public void createEntityB(Form1 ui, string name)
         {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
             EntityB entityB = new EntityB(name);
-            entityB = unitOfWork.insertEntityB(entityB);
-            ui.loadNewEntityBInGridSearch(int.Parse(entityB.Id.ToString()), entityB.Name);
+            entityB = unitOfWork.createEntityB(entityB);
+            ui.loadEntityBOnUi(int.Parse(entityB.Id.ToString()), entityB.Name);
             unitOfWork.disconnect();
         }
 
@@ -27,13 +27,12 @@ namespace template_csharp_postgresql
             unitOfWork.disconnect();
             if (result)
             {
-                ui.deleteEntityBFromGrid(index);
+                ui.deleteEntityBFromUi(index);
             }else
             {
                 ui.showWarning("Failed to delete item. Please check if the item is linked to any other entities before attempting to delete.");
             }
         }
-
 
         public void deleteEntityA(Form1 ui, int id, int index)
         {
@@ -84,7 +83,7 @@ namespace template_csharp_postgresql
             return data;
         }
 
-        public void insertEntityA(Form1 ui, DataTable dtEntititesB, string name)
+        public void createEntityA(Form1 ui, DataTable dtEntititesB, string name)
         {
             EntityA entityA = new EntityA(name);
             List<EntityB> entitiesB = new List<EntityB>();
@@ -97,15 +96,17 @@ namespace template_csharp_postgresql
 
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            entityA = unitOfWork.insertEntityA(entityA);
+            entityA = unitOfWork.createEntityA(entityA);
             unitOfWork.disconnect();
         }
 
         public Dictionary<string, Dictionary<int, DataTable>> getAllEntitiesA()
         {
             // Returns a dictionary
-            //{"A": {entAid, [{idEntA, name}]},
-            // "B": {entAid: [{idEntB1, name1}, {idEntB2, name2}, ...]}}
+            //{
+            //  "A": {entAid, [{idEntA, name}]},
+            //  "B": {entAid: [{idEntB1, name1}, {idEntB2, name2}, ...]}
+            //}
 
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
@@ -182,34 +183,31 @@ namespace template_csharp_postgresql
             }
         }
 
-        public void filterEntityAOption1(string entityBName)
+        public void readEntityAOption1(string entityBName)
         {
-            // Find by EntityB name
+            // Read by EntityB name
             PostgreSQLUnitOfWork unitOfwork = new PostgreSQLUnitOfWork();
             unitOfwork.connect();
 
             unitOfwork.disconnect();
-
         }
 
-        public void filterEntityAOption2(string entityAName)
+        public void readEntityAOption2(string entityAName)
         {
-            // Find by EntityA name
+            // Read by EntityA name
             PostgreSQLUnitOfWork unitOfwork = new PostgreSQLUnitOfWork();
             unitOfwork.connect();
 
             unitOfwork.disconnect();
-
         }
 
-        public void filterEntityAOption3(string entityAName, string entityBName)
+        public void readEntityAOption3(string entityAName, string entityBName)
         {
-            // Find by EntityA name and EntityB name
+            // Read by EntityA name and EntityB name
             PostgreSQLUnitOfWork unitOfwork = new PostgreSQLUnitOfWork();
             unitOfwork.connect();
 
             unitOfwork.disconnect();
-
         }
     }
 }

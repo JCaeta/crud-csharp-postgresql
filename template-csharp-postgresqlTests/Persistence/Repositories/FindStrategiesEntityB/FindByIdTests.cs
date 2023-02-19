@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using template_csharp_postgresql.Persistence.Repositories.FindStrategiesEntityB;
+using template_csharp_postgresql.Persistence.Repositories.ReadStrategiesEntityB;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,13 +7,13 @@ using template_csharp_postgresql.Entities;
 using Npgsql;
 using template_csharp_postgresql.Persistence.Repositories;
 
-namespace template_csharp_postgresql.Persistence.Repositories.FindStrategiesEntityB.Tests
+namespace template_csharp_postgresql.Persistence.Repositories.ReadStrategiesEntityB.Tests
 {
     [TestClass()]
-    public class FindByIdTests
+    public class ReadByIdTests
     {
         [TestMethod()]
-        public void findTest()
+        public void readTest()
         {
             string connectionString =
             "Server = " + Globals.SERVER +
@@ -27,12 +27,12 @@ namespace template_csharp_postgresql.Persistence.Repositories.FindStrategiesEnti
             List<EntityB> entitiesB;
             using (NpgsqlTransaction transaction = connection.BeginTransaction())
             {
-                FindById<EntityB> findById = new FindById<EntityB>();
-                findById.setIds(ids);
-                entitiesB = findById.find(connection);
+                ReadById<EntityB> readById = new ReadById<EntityB>();
+                readById.setIds(ids);
+                entitiesB = readById.read(connection);
             }
 
-            //IFindStrategy<EntityB> findById = new FindById<EntityB>();
+            //IReadStrategy<EntityB> readById = new ReadById<EntityB>();
 
             connection.Close();
             if (entitiesB.Count == 0)

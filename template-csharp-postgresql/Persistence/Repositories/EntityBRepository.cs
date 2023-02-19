@@ -11,7 +11,7 @@ namespace template_csharp_postgresql.Persistence.Repositories
     where EntityB : template_csharp_postgresql.Entities.EntityB, new()
     {
         private NpgsqlConnection connection;
-        private IFindStrategy<EntityB> findStrategy;
+        private IReadStrategy<EntityB> readStrategy;
         public EntityBRepository(NpgsqlConnection connection)
         {
             this.connection = connection;
@@ -41,12 +41,12 @@ namespace template_csharp_postgresql.Persistence.Repositories
             }
         }
 
-        public List<EntityB> find(EntityB filter)
+        public List<EntityB> read(EntityB filter)
         {
-            return this.findStrategy.find(this.connection);
+            return this.readStrategy.read(this.connection);
         }
 
-        public EntityB findOne(EntityB item)
+        public EntityB readOne(EntityB item)
         {
             throw new NotImplementedException();
         }
@@ -65,9 +65,9 @@ namespace template_csharp_postgresql.Persistence.Repositories
             }
         }
 
-        public void setFindStrategy(IFindStrategy<EntityB> findStrategy)
+        public void setReadStrategy(IReadStrategy<EntityB> readStrategy)
         {
-            this.findStrategy = findStrategy;
+            this.readStrategy = readStrategy;
         }
     }
 }

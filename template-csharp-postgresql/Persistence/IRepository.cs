@@ -9,9 +9,10 @@ namespace template_csharp_postgresql.Persistence
     public interface IRepository<T>
     {
         T create(T item);
+        List<T> read(T filter);
+        T readOne(T filter);
+
         bool update(T item);
         bool delete(T item);
-        List<T> find(T filter);
-        T findOne(T filter);
     }
 }

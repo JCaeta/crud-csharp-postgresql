@@ -11,7 +11,14 @@ namespace template_csharp_postgresql
     public partial class Form1 : Form
     {
         private Controller controller;
-        private DataTable entitiesBMap; // Maps the entitiesB ids with indexes of grids and list boxes
+        private DataTable entitiesBMap;
+        // Maps the entitiesB ids with indexes of grids and list boxes
+        // Map's fields
+        // - id
+        // - name
+        // - index-grid-read
+        // - index-checked-list-box
+
         private DataTable entitiesB;
         private Dictionary<string, Dictionary<int, DataTable>> dataEntitiesA;
         private int widthColumns = 155;
@@ -28,18 +35,18 @@ namespace template_csharp_postgresql
 
         private void initializeGridSearchEntityA()
         {
-            this.gridSearchEntityA.Columns.Add("id", "Id");
-            this.gridSearchEntityA.Columns["Id"].Visible = false;
-            this.gridSearchEntityA.Columns.Add("name", "Name");
-            this.gridSearchEntityA.Columns["name"].Width = this.widthColumns;
+            this.gridReadEntityA.Columns.Add("id", "Id");
+            this.gridReadEntityA.Columns["Id"].Visible = false;
+            this.gridReadEntityA.Columns.Add("name", "Name");
+            this.gridReadEntityA.Columns["name"].Width = this.widthColumns;
         }
 
         private void initializeGridSearchEntityB()
         {
-            this.gridSearchEntityB.Columns.Add("id", "Id");
-            this.gridSearchEntityB.Columns["id"].Visible = false;
-            this.gridSearchEntityB.Columns.Add("name", "Name");
-            this.gridSearchEntityB.Columns["name"].Width = this.widthColumns;
+            this.gridReadEntityB.Columns.Add("id", "Id");
+            this.gridReadEntityB.Columns["id"].Visible = false;
+            this.gridReadEntityB.Columns.Add("name", "Name");
+            this.gridReadEntityB.Columns["name"].Width = this.widthColumns;
         }
 
         private void initializeGridEntitiesBAssociatedEntitiesA()
@@ -52,16 +59,18 @@ namespace template_csharp_postgresql
 
         private void initializeEntitiesBTrackDataTable()
         {
+            // Initialize entitiesB map that tracks the checked listbox
+            // with the gridReadEntityB
             this.entitiesBMap = new DataTable();
             this.entitiesBMap.Columns.Add("id");
             this.entitiesBMap.Columns.Add("name");
-            this.entitiesBMap.Columns.Add("index-grid-search");
+            this.entitiesBMap.Columns.Add("index-grid-read");
             this.entitiesBMap.Columns.Add("index-checked-list-box");
         }
         
         public void deleteEntityAFromGrid(int index, int id)
         {
-            this.gridSearchEntityA.Rows.RemoveAt(index);
+            this.gridReadEntityA.Rows.RemoveAt(index);
             this.dataEntitiesA["A"].Remove(id); // Delete entityA
             this.dataEntitiesA["B"].Remove(id); // Delete associated entitiesB
             this.gridEntitiesBAssociatedEntitiesA.Rows.Clear();
@@ -69,38 +78,41 @@ namespace template_csharp_postgresql
 
         public void loadEntitiesA()
         {
-            this.gridSearchEntityA.Rows.Clear();
+            this.gridReadEntityA.Rows.Clear();
             this.gridEntitiesBAssociatedEntitiesA.Rows.Clear();
             this.dataEntitiesA = this.controller.getAllEntitiesA();
             int count = 0;
             foreach (DataTable entityA in this.dataEntitiesA["A"].Values)
             {
-                this.gridSearchEntityA.Rows.Add();
-                this.gridSearchEntityA.Rows[count].Cells["id"].Value = entityA.Rows[0]["id"];
-                this.gridSearchEntityA.Rows[count].Cells["name"].Value = entityA.Rows[0]["name"];
+                this.gridReadEntityA.Rows.Add();
+                this.gridReadEntityA.Rows[count].Cells["id"].Value = entityA.Rows[0]["id"];
+                this.gridReadEntityA.Rows[count].Cells["name"].Value = entityA.Rows[0]["name"];
                 count++;
             }
         }
 
         private void loadEntitiesB()
         {
+            // This method loads entitiesB in gridReadEntityB and checkedListBoxEntitiesB
             this.entitiesB = this.controller.getAllEntitiesB();
             this.initializeEntitiesBTrackDataTable();
             int count = 0;
+            this.gridReadEntityB.Rows.Clear();
+            this.checkedListBoxEntititesB.Items.Clear();
             foreach (DataRow row in this.entitiesB.Rows)
             {
                 this.entitiesBMap.Rows.Add();
                 this.entitiesBMap.Rows[count]["id"] = row["id"];
                 this.entitiesBMap.Rows[count]["name"] = row["name"];
-                this.entitiesBMap.Rows[count]["index-grid-search"] = count;
+                this.entitiesBMap.Rows[count]["index-grid-read"] = count;
                 this.entitiesBMap.Rows[count]["index-checked-list-box"] = count;
 
-                // Load search entity B grid
-                this.gridSearchEntityB.Rows.Add();
-                this.gridSearchEntityB.Rows[count].Cells["id"].Value = row["id"];
-                this.gridSearchEntityB.Rows[count].Cells["name"].Value = row["name"];
+                // Load read entity B grid
+                this.gridReadEntityB.Rows.Add();
+                this.gridReadEntityB.Rows[count].Cells["id"].Value = row["id"];
+                this.gridReadEntityB.Rows[count].Cells["name"].Value = row["name"];
 
-                // Load associated entity b checkbox in entityA insert section
+                // Load associated entity b checkbox in entityA create section
                 this.checkedListBoxEntititesB.Items.Add(row["name"], false);
                 count += 1;
             }
@@ -112,34 +124,67 @@ namespace template_csharp_postgresql
             this.loadEntitiesB();
         }
 
-        private void insertEntityB(object sender, EventArgs e)
+        private void createEntityB(object sender, EventArgs e)
         {
             string name = this.textBoxNameEntityB.Text;
-            this.controller.insertEntityB(this, name);
+            this.controller.createEntityB(this, name);
 
             // Clear entry
             this.textBoxNameEntityB.Clear();
         }
 
-        public void loadNewEntityBInGridSearch(int id, string name)
+        public void loadEntityBOnUi(int id, string name)
         {
-            // 1) Create row and get index
-            this.gridSearchEntityB.Rows.Add();
-            int row_index = this.gridSearchEntityB.Rows.Count - 1;
+            // To prevent loading all entities every time a new EntityB is created,
+            // we'll add only the new entity to the checked listbox and grid.
 
-            // 2) Load row
-            this.gridSearchEntityB.Rows[row_index].Cells["id"].Value = id;
-            this.gridSearchEntityB.Rows[row_index].Cells["name"].Value = name;
+            // 1) Create row and get index
+            this.gridReadEntityB.Rows.Add();
+            int row_index = this.gridReadEntityB.Rows.Count - 1;
+
+            // 2) Load on the grid
+            this.gridReadEntityB.Rows[row_index].Cells["id"].Value = id;
+            this.gridReadEntityB.Rows[row_index].Cells["name"].Value = name;
+
+            // 3) Load on the checked listbox
+            this.checkedListBoxEntititesB.Items.Add(name, false);
+
+            // 4) Update the entitiesBMap
+            this.entitiesBMap.Rows.Add();
+            int lengthMap = this.entitiesBMap.Rows.Count;
+            int indexCheckedListBox = this.checkedListBoxEntititesB.Items.Count;
+            this.entitiesBMap.Rows[lengthMap - 1]["id"] = id;
+            this.entitiesBMap.Rows[lengthMap - 1]["name"] = name;
+            this.entitiesBMap.Rows[lengthMap - 1]["index-grid-read"] = row_index;
+            this.entitiesBMap.Rows[lengthMap - 1]["index-checked-list-box"] = indexCheckedListBox;
+        }
+        public void deleteEntityBFromUi(int index)
+        {
+            // To prevent loading all entities every time an EntityB is deleted,
+            // we'll use the entitiesBMap to selectively delete the entity from the
+            // checked listbox and grid.
+
+            // 1) Remove from grid
+            gridReadEntityB.Rows.RemoveAt(index);
+
+            // 2) Remove from checked listbox
+            DataRow[] rowsChkListBox = this.entitiesBMap.Select("[index-grid-read] = " + index);
+            int indexChkListBox = int.Parse(rowsChkListBox[0]["index-checked-list-box"].ToString());
+            this.checkedListBoxEntititesB.Items.RemoveAt(indexChkListBox);
+
+            // 3) Remove from entitiesBMap
+            DataRow[] rows = this.entitiesBMap.Select("[index-grid-read] = " + index);
+            this.entitiesBMap.Rows.Remove(rows[0]);
         }
 
         private void deleteEntityB(object sender, EventArgs e)
         {
             // Get index of the selected row
-            if(this.gridSearchEntityB.Rows.Count > 0)
+            if (this.gridReadEntityB.Rows.Count > 0)
             {
-                int row_index = this.gridSearchEntityB.CurrentCell.RowIndex;
-                int col_index = this.gridSearchEntityB.Columns["Id"].Index;
-                int id = int.Parse(this.gridSearchEntityB[col_index, row_index].Value.ToString());
+                int row_index = this.gridReadEntityB.CurrentCell.RowIndex;
+                int col_index = this.gridReadEntityB.Columns["Id"].Index;
+                int id = int.Parse(this.gridReadEntityB[col_index, row_index].Value.ToString());
                 this.controller.deleteEntityB(this, id, row_index);
             }
         }
@@ -149,16 +194,11 @@ namespace template_csharp_postgresql
             MessageBox.Show(message);
         }
 
-        public void deleteEntityBFromGrid(int index)
-        {
-            gridSearchEntityB.Rows.RemoveAt(index);
-        }
-
         private void updateEntityB(object sender, EventArgs e)
         {
-            int row_index = this.gridSearchEntityB.CurrentCell.RowIndex;
-            int id = int.Parse(this.gridSearchEntityB.Rows[row_index].Cells["id"].Value.ToString());
-            string name = this.gridSearchEntityB.Rows[row_index].Cells["name"].Value.ToString();
+            int row_index = this.gridReadEntityB.CurrentCell.RowIndex;
+            int id = int.Parse(this.gridReadEntityB.Rows[row_index].Cells["id"].Value.ToString());
+            string name = this.gridReadEntityB.Rows[row_index].Cells["name"].Value.ToString();
 
             FormUpdateEntityB formUpdateEntityB = new FormUpdateEntityB(id, name, row_index, this.controller, this);
             formUpdateEntityB.ShowDialog();
@@ -166,15 +206,15 @@ namespace template_csharp_postgresql
 
         public void replaceEntityBInGrid(int index, int newId, string newName)
         {
-            this.gridSearchEntityB.Rows[index].Cells["id"].Value = newId;
-            this.gridSearchEntityB.Rows[index].Cells["name"].Value = newName;
+            this.gridReadEntityB.Rows[index].Cells["id"].Value = newId;
+            this.gridReadEntityB.Rows[index].Cells["name"].Value = newName;
         }
 
-        private void insertEntityA(object sender, EventArgs e)
+        private void createEntityA(object sender, EventArgs e)
         {
             string name = this.textBoxNameEntityA.Text;
             DataTable associatedEntitiesB = this.getCheckedEntitiesB();
-            this.controller.insertEntityA(this, associatedEntitiesB, name);
+            this.controller.createEntityA(this, associatedEntitiesB, name);
         }
 
         private DataTable getCheckedEntitiesB() 
@@ -209,7 +249,7 @@ namespace template_csharp_postgresql
         private void loadEntitiesBAssociatedEntitiesA(int selectedRow)
         {
             this.gridEntitiesBAssociatedEntitiesA.Rows.Clear();
-            int entAid = int.Parse(this.gridSearchEntityA.Rows[selectedRow].Cells["id"].Value.ToString());
+            int entAid = int.Parse(this.gridReadEntityA.Rows[selectedRow].Cells["id"].Value.ToString());
             int count = 0;
             foreach(DataRow entityB in this.dataEntitiesA["B"][entAid].Rows)
             {
@@ -222,10 +262,12 @@ namespace template_csharp_postgresql
 
         private void deleteEntityA(object sender, EventArgs e)
         {
-            if(this.gridSearchEntityA.CurrentCell != null)
+
+
+            if (this.gridReadEntityA.CurrentCell != null)
             {
-                int rowIndex = this.gridSearchEntityA.CurrentCell.RowIndex;
-                int id = int.Parse(this.gridSearchEntityA.Rows[rowIndex].Cells["id"].Value.ToString());
+                int rowIndex = this.gridReadEntityA.CurrentCell.RowIndex;
+                int id = int.Parse(this.gridReadEntityA.Rows[rowIndex].Cells["id"].Value.ToString());
                 this.controller.deleteEntityA(this, id, rowIndex);
             }else
             {
@@ -235,7 +277,7 @@ namespace template_csharp_postgresql
 
         private void updateEntityA(object sender, EventArgs e)
         {
-            if (this.gridSearchEntityA.CurrentCell != null)
+            if (this.gridReadEntityA.CurrentCell != null)
             {
                 Dictionary<string, DataTable> dataEntityA = this.getEntityAToUpdate();
                 UpdateEntityA uiUpdateEntityA = new UpdateEntityA(this, this.controller, dataEntityA);
@@ -265,9 +307,9 @@ namespace template_csharp_postgresql
 
             // 2) Search data
             // Load entityA 
-            int rowIndex = this.gridSearchEntityA.CurrentCell.RowIndex;
+            int rowIndex = this.gridReadEntityA.CurrentCell.RowIndex;
 
-            int idEntA = int.Parse(this.gridSearchEntityA.Rows[rowIndex].Cells["id"].Value.ToString());
+            int idEntA = int.Parse(this.gridReadEntityA.Rows[rowIndex].Cells["id"].Value.ToString());
             string nameEntA = this.dataEntitiesA["A"][idEntA].Rows[0]["name"].ToString();
 
             dataEntityA["A"].Rows.Add();
@@ -310,12 +352,12 @@ namespace template_csharp_postgresql
             this.loadEntitiesA();
         }
 
-        private void filterEntityA(object sender, EventArgs e)
+        private void readEntityA(object sender, EventArgs e)
         {
             // Options that returns in binary code
-            // Find by EntityB name: 01 (Option 1)
-            // Find by EntityA name: 10 (Option 2)
-            // Find by EntityA name and EntityB name: 11 (Option 3)
+            // Read by EntityB name: 01 (Option 1)
+            // Read by EntityA name: 10 (Option 2)
+            // Read by EntityA name and EntityB name: 11 (Option 3)
 
             // 1) Get option
             string option = "";
@@ -338,21 +380,20 @@ namespace template_csharp_postgresql
             // 2) Filter
             if(option == "01") // Option 1
             {
-                this.controller.filterEntityAOption1(this.textBoxEntBNameFilterA.Text);
+                this.controller.readEntityAOption1(this.textBoxEntBNameFilterA.Text);
             }
             else
             {
                 if(option == "10") // Option 2
                 {
-                    this.controller.filterEntityAOption2(this.textBoxNameFilterA.Text);
+                    this.controller.readEntityAOption2(this.textBoxNameFilterA.Text);
                 }else
                 {
                     if(option == "11")
                     {
-                        this.controller.filterEntityAOption3(this.textBoxNameFilterA.Text, this.textBoxEntBNameFilterA.Text);
+                        this.controller.readEntityAOption3(this.textBoxNameFilterA.Text, this.textBoxEntBNameFilterA.Text);
                     }
                 }
-
             }
         }
     }
