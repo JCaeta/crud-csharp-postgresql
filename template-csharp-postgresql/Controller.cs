@@ -15,26 +15,26 @@ namespace template_csharp_postgresql
             unitOfWork.connect();
             EntityB entityB = new EntityB(name);
             entityB = unitOfWork.createEntityB(entityB);
-            ui.loadEntityBOnUi(int.Parse(entityB.Id.ToString()), entityB.Name);
+            ui.loadEntityBOnUi(entityB);
             unitOfWork.disconnect();
         }
 
-        public void deleteEntityB(Form1 ui, int id, int index)
+        public void deleteEntityB(Form1 ui, EntityB entityB)
         {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            bool result = unitOfWork.deleteEntityB(id);
+            bool result = unitOfWork.deleteEntityB(entityB.Id);
             unitOfWork.disconnect();
             if (result)
             {
-                ui.deleteEntityBFromUi(index);
+                ui.deleteEntityBFromUi(entityB.Id);
             }else
             {
                 ui.showWarning("Failed to delete item. Please check if the item is linked to any other entities before attempting to delete.");
             }
         }
 
-        public void deleteEntityA(Form1 ui, int id, int index)
+        public void deleteEntityA(Form1 ui, int id)
         {
             EntityA entityA = new EntityA(id);
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
@@ -44,7 +44,7 @@ namespace template_csharp_postgresql
 
             if (result)
             {
-                ui.deleteEntityAFromGrid(index, id);
+                ui.deleteEntityAFromUi(id);
             }
         }
 
@@ -61,7 +61,7 @@ namespace template_csharp_postgresql
             unitOfWork.disconnect();
         }
 
-        public DataTable getAllEntitiesB()
+        public List<EntityB> getAllEntitiesB()
         {
             DataTable data = new DataTable();
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
@@ -69,109 +69,32 @@ namespace template_csharp_postgresql
             List<EntityB> entitiesB = unitOfWork.getAllEntitiesB();
             unitOfWork.disconnect();
 
-            // Load datatable
-            data.Columns.Add("id");
-            data.Columns.Add("name");
-            int count = 0;
-            foreach (EntityB entityB in entitiesB)
-            {
-                data.Rows.Add();
-                data.Rows[count]["id"] = entityB.Id;
-                data.Rows[count]["name"] = entityB.Name;
-                count += 1;
-            }
-            return data;
+            return entitiesB;
         }
 
-        public void createEntityA(Form1 ui, DataTable dtEntititesB, string name)
+        public void createEntityA(Form1 ui, EntityA entityA)
         {
-            EntityA entityA = new EntityA(name);
-            List<EntityB> entitiesB = new List<EntityB>();
-            foreach(DataRow row in dtEntititesB.Rows)
-            {
-                EntityB entityB = new EntityB(int.Parse(row["id"].ToString()), row["name"].ToString());
-                entitiesB.Add(entityB);
-            }
-            entityA.EntitiesB = entitiesB;
-
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
             entityA = unitOfWork.createEntityA(entityA);
             unitOfWork.disconnect();
+
+            ui.loadEntityAOnUi(entityA);
         }
 
-        public Dictionary<string, Dictionary<int, DataTable>> getAllEntitiesA()
-        {
-            // Returns a dictionary
-            //{
-            //  "A": {entAid, [{idEntA, name}]},
-            //  "B": {entAid: [{idEntB1, name1}, {idEntB2, name2}, ...]}
-            //}
 
+        public List<EntityA> getAllEntitiesA()
+        {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
             List<EntityA> entitiesA = unitOfWork.getAllEntitiesA();
             unitOfWork.disconnect();
 
-            // Convert entities object to DataTables and Dictionary
-            // those are the data types the gui will handle
-            Dictionary<int, DataTable> dataEntitiesB = new Dictionary<int, DataTable>();// Dictionary for entitiesB
-            Dictionary<int, DataTable> dataEntitiesA = new Dictionary<int, DataTable>(); // Dictionary for entitiesA
-            Dictionary<string, Dictionary<int, DataTable>> dataEntities = new Dictionary<string, Dictionary<int, DataTable>>(); // Dictionary for both entities A and B
-
-            foreach (EntityA entityA in entitiesA)
-            {
-                // Convert entitiesB
-                if (!dataEntitiesB.ContainsKey(entityA.Id))
-                {
-                    // Create entitiesB datatable
-                    DataTable dtEntitiesB = new DataTable();
-                    dtEntitiesB.Columns.Add("id");
-                    dtEntitiesB.Columns.Add("name");
-                    dataEntitiesB.Add(entityA.Id, dtEntitiesB);
-
-                    // Create entitiesA datatable
-                    DataTable dtEntitiesA = new DataTable();
-                    dtEntitiesA.Columns.Add("id");
-                    dtEntitiesA.Columns.Add("name");
-
-                    // Convert entities A
-                    dtEntitiesA.Rows.Add();
-                    dtEntitiesA.Rows[0]["id"] = entityA.Id;
-                    dtEntitiesA.Rows[0]["name"] = entityA.Name;
-                    dataEntitiesA.Add(entityA.Id, dtEntitiesA);
-                }
-                int countB = 0;
-                foreach (EntityB entityB in entityA.EntitiesB)
-                {
-                    dataEntitiesB[entityA.Id].Rows.Add();
-                    dataEntitiesB[entityA.Id].Rows[countB]["id"] = entityB.Id;
-                    dataEntitiesB[entityA.Id].Rows[countB]["name"] = entityB.Name;
-                    countB++;
-                }
-            }
-            dataEntities.Add("A", dataEntitiesA);
-            dataEntities.Add("B", dataEntitiesB);
-            return dataEntities;
+            return entitiesA;
         }
 
-        public void updateEntityA(Form1 ui, Dictionary<string, DataTable> dataEntityA)
+        public void updateEntityA(Form1 ui, EntityA entityA)
         {
-            // 1) Convert data to EntityA object
-            EntityA entityA = new EntityA();
-            entityA.Id = int.Parse(dataEntityA["A"].Rows[0]["id"].ToString());
-            entityA.Name = dataEntityA["A"].Rows[0]["name"].ToString();
-
-            foreach(DataRow row in dataEntityA["B"].Rows)
-            {
-                EntityB entityB = new EntityB();
-                entityB.Id = int.Parse(row["id"].ToString());
-                entityB.Name = row["name"].ToString();
-
-                entityA.EntitiesB.Add(entityB);
-            }
-
-            // 2) Update in database
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
             bool result = unitOfWork.updateEntityA(entityA);
@@ -179,35 +102,40 @@ namespace template_csharp_postgresql
 
             if (result)
             {
-                ui.loadEntitiesA();
+                ui.updateEntityAOnUi(entityA);
             }
         }
 
-        public void readEntityAOption1(string entityBName)
+        public List<EntityA> readEntityAOption1(string entityBName)
         {
             // Read by EntityB name
-            PostgreSQLUnitOfWork unitOfwork = new PostgreSQLUnitOfWork();
-            unitOfwork.connect();
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            List<EntityA> entitiesA = unitOfWork.readEntityAOption1(entityBName);
+            unitOfWork.disconnect();
+            return entitiesA;
 
-            unitOfwork.disconnect();
         }
 
-        public void readEntityAOption2(string entityAName)
+        public List<EntityA> readEntityAOption2(string entityAName)
         {
             // Read by EntityA name
-            PostgreSQLUnitOfWork unitOfwork = new PostgreSQLUnitOfWork();
-            unitOfwork.connect();
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            List<EntityA> entitiesA = unitOfWork.readEntityAOption2(entityAName);
+            unitOfWork.disconnect();
+            return entitiesA;
 
-            unitOfwork.disconnect();
         }
 
-        public void readEntityAOption3(string entityAName, string entityBName)
+        public List<EntityA> readEntityAOption3(string entityAName, string entityBName)
         {
             // Read by EntityA name and EntityB name
-            PostgreSQLUnitOfWork unitOfwork = new PostgreSQLUnitOfWork();
-            unitOfwork.connect();
-
-            unitOfwork.disconnect();
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            List<EntityA> entitiesA = unitOfWork.readEntityAOption3(entityAName, entityBName);
+            unitOfWork.disconnect();
+            return entitiesA;
         }
     }
 }

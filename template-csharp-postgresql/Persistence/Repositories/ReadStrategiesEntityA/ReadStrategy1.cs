@@ -40,9 +40,9 @@ namespace template_csharp_postgresql.Persistence.Repositories.ReadStrategiesEnti
                    "entities_b.id as ent_b_id," +
                    "entities_b.name as ent_b_name " +
                 "from entities_a " +
-                "join rel_entities_a_entities_b as relAB on entities_a.id = relAB.id_entity_a " +
-                "join entities_b on entities_b.id = relAB.id_entity_b " +
-                "where entities_b.name = '@name';";
+                "full join rel_entities_a_entities_b as relAB on entities_a.id = relAB.id_entity_a " +
+                "full join entities_b on entities_b.id = relAB.id_entity_b " +
+                "where entities_b.name = @name;";
         }
 
     }

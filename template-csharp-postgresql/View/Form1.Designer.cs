@@ -150,7 +150,7 @@ namespace template_csharp_postgresql
             this.gridReadEntityB.AllowUserToAddRows = false;
             this.gridReadEntityB.AllowUserToDeleteRows = false;
             this.gridReadEntityB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridReadEntityB.Location = new System.Drawing.Point(354, 113);
+            this.gridReadEntityB.Location = new System.Drawing.Point(343, 113);
             this.gridReadEntityB.MultiSelect = false;
             this.gridReadEntityB.Name = "gridReadEntityB";
             this.gridReadEntityB.ReadOnly = true;
@@ -162,7 +162,7 @@ namespace template_csharp_postgresql
             // lblEntityBSearch
             // 
             this.lblEntityBSearch.AutoSize = true;
-            this.lblEntityBSearch.Location = new System.Drawing.Point(354, 32);
+            this.lblEntityBSearch.Location = new System.Drawing.Point(343, 32);
             this.lblEntityBSearch.Name = "lblEntityBSearch";
             this.lblEntityBSearch.Size = new System.Drawing.Size(74, 15);
             this.lblEntityBSearch.TabIndex = 11;
@@ -183,7 +183,7 @@ namespace template_csharp_postgresql
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(399, 55);
+            this.textBox1.Location = new System.Drawing.Point(388, 55);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(107, 23);
             this.textBox1.TabIndex = 13;
@@ -191,7 +191,7 @@ namespace template_csharp_postgresql
             // lblSearchNameEntityB1
             // 
             this.lblSearchNameEntityB1.AutoSize = true;
-            this.lblSearchNameEntityB1.Location = new System.Drawing.Point(354, 59);
+            this.lblSearchNameEntityB1.Location = new System.Drawing.Point(343, 59);
             this.lblSearchNameEntityB1.Name = "lblSearchNameEntityB1";
             this.lblSearchNameEntityB1.Size = new System.Drawing.Size(42, 15);
             this.lblSearchNameEntityB1.TabIndex = 14;
@@ -199,7 +199,7 @@ namespace template_csharp_postgresql
             // 
             // buttonReadEntityB
             // 
-            this.buttonReadEntityB.Location = new System.Drawing.Point(354, 84);
+            this.buttonReadEntityB.Location = new System.Drawing.Point(343, 84);
             this.buttonReadEntityB.Name = "buttonReadEntityB";
             this.buttonReadEntityB.Size = new System.Drawing.Size(75, 23);
             this.buttonReadEntityB.TabIndex = 16;
@@ -208,7 +208,7 @@ namespace template_csharp_postgresql
             // 
             // buttondelete
             // 
-            this.buttondelete.Location = new System.Drawing.Point(354, 287);
+            this.buttondelete.Location = new System.Drawing.Point(343, 287);
             this.buttondelete.Name = "buttondelete";
             this.buttondelete.Size = new System.Drawing.Size(75, 23);
             this.buttondelete.TabIndex = 17;
@@ -218,7 +218,7 @@ namespace template_csharp_postgresql
             // 
             // buttonUpdateEntityB
             // 
-            this.buttonUpdateEntityB.Location = new System.Drawing.Point(431, 287);
+            this.buttonUpdateEntityB.Location = new System.Drawing.Point(420, 287);
             this.buttonUpdateEntityB.Name = "buttonUpdateEntityB";
             this.buttonUpdateEntityB.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdateEntityB.TabIndex = 18;
@@ -228,7 +228,7 @@ namespace template_csharp_postgresql
             // 
             // buttonReadEntityA
             // 
-            this.buttonReadEntityA.Location = new System.Drawing.Point(100, 113);
+            this.buttonReadEntityA.Location = new System.Drawing.Point(104, 113);
             this.buttonReadEntityA.Name = "buttonReadEntityA";
             this.buttonReadEntityA.Size = new System.Drawing.Size(75, 23);
             this.buttonReadEntityA.TabIndex = 22;
@@ -321,7 +321,7 @@ namespace template_csharp_postgresql
             // 
             // buttonClearEntityB
             // 
-            this.buttonClearEntityB.Location = new System.Drawing.Point(431, 84);
+            this.buttonClearEntityB.Location = new System.Drawing.Point(420, 84);
             this.buttonClearEntityB.Name = "buttonClearEntityB";
             this.buttonClearEntityB.Size = new System.Drawing.Size(75, 23);
             this.buttonClearEntityB.TabIndex = 30;

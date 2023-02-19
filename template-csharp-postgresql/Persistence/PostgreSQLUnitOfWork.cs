@@ -104,7 +104,7 @@ namespace template_csharp_postgresql.Persistence
             return entityARepository.update(item);
         }
 
-        public List<EntityA> filterEntityAOption1(string entityBName)
+        public List<EntityA> readEntityAOption1(string entityBName)
         {
             // This option reads by EntityB name
             EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
@@ -115,7 +115,7 @@ namespace template_csharp_postgresql.Persistence
             return entityARepository.read(new EntityA());
         }
 
-        public List<EntityA> filterEntityAOption2(string entityAName)
+        public List<EntityA> readEntityAOption2(string entityAName)
         {
             // This option reads by EntityA name
             EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
@@ -126,7 +126,7 @@ namespace template_csharp_postgresql.Persistence
             return entityARepository.read(new EntityA());
         }
 
-        public List<EntityA> filterEntityAOption3(string entityAName, string entityBName)
+        public List<EntityA> readEntityAOption3(string entityAName, string entityBName)
         {
             // This option reads by EntityA name and EntityB name
             EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
