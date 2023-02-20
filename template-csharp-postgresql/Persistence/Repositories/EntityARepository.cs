@@ -10,13 +10,11 @@ namespace template_csharp_postgresql.Persistence.Repositories
     where EntityA : template_csharp_postgresql.Entities.EntityA
     {
         private NpgsqlConnection connection;
-        //NpgsqlTransaction transaction;
         private IReadStrategy<EntityA> readStrategy;
 
         public EntityARepository(NpgsqlConnection connection)
         {
             this.connection = connection;
-            //this.transaction = transaction;
         }
 
         public EntityA create(EntityA item)
@@ -83,7 +81,6 @@ namespace template_csharp_postgresql.Persistence.Repositories
         {
             this.readStrategy = readStrategy;
         }
-
 
         public List<EntityA> read(EntityA filter)
         {

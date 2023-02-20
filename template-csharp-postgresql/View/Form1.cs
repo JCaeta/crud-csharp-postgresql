@@ -145,6 +145,8 @@ namespace template_csharp_postgresql
                 this.viewMapEntityA.addEntityA(entityA, count);
                 count++;
             }
+
+            this.viewMapEntityA.setAllEntitiesB(this.viewMapEntityB.getEntitiesB());
         }
 
         private void loadData()
@@ -383,6 +385,14 @@ namespace template_csharp_postgresql
             }
 
             this.setEntitiesA(entitiesA);
+        }
+
+        private void clearEntityAGrid(object sender, EventArgs e)
+        {
+            this.textBoxNameFilterA.Text = "";
+            this.textBoxEntBNameFilterA.Text = "";
+            this.gridEntitiesBAssociatedEntitiesA.Rows.Clear();
+            this.gridReadEntityA.Rows.Clear();
         }
     }
 }

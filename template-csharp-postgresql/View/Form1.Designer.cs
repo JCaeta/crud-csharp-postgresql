@@ -318,6 +318,7 @@ namespace template_csharp_postgresql
             this.buttonClearEntityA.TabIndex = 29;
             this.buttonClearEntityA.Text = "Clear";
             this.buttonClearEntityA.UseVisualStyleBackColor = true;
+            this.buttonClearEntityA.Click += new System.EventHandler(this.clearEntityAGrid);
             // 
             // buttonClearEntityB
             // 
