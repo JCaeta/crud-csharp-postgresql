@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Text;
 using template_csharp_postgresql.Persistence.Repositories;
 
-namespace template_csharp_postgresql.Persistence.Repositories.ReadStrategiesEntityB
+namespace template_csharp_postgresql.Persistence.Repositories.ReadStrategiesModelB
 {
     public class ReadById<EntityB> : IReadStrategy<EntityB>
-    where EntityB : template_csharp_postgresql.Entities.EntityB, new()
+    where EntityB : template_csharp_postgresql.Models.ModelB, new()
     {
         List<int> ids; 
         public List<EntityB> read(NpgsqlConnection connection)
         {
-            List<EntityB> entitiesB = new List<EntityB>();
+            List<EntityB> modelsB = new List<EntityB>();
             if (this.ids.Count > 0)
             {
                 // 1) Execute query
@@ -26,12 +26,12 @@ namespace template_csharp_postgresql.Persistence.Repositories.ReadStrategiesEnti
                 // 2) Extract data
                 while (result.Read())
                 {
-                    EntityB entityB = new EntityB();
-                    entityB.Id = result.GetInt32(0);
-                    entityB.Name = result.GetString(1);
-                    entitiesB.Add(entityB);
+                    EntityB modelB = new EntityB();
+                    modelB.Id = result.GetInt32(0);
+                    modelB.Name = result.GetString(1);
+                    modelsB.Add(modelB);
                 }
-                return entitiesB;
+                return modelsB;
             }
             else
             {
@@ -54,7 +54,7 @@ namespace template_csharp_postgresql.Persistence.Repositories.ReadStrategiesEnti
             }
 
             ids += ")";
-            return "select distinct * from entities_b where id in " + ids + ";" ;
+            return "select distinct * from models_b where id in " + ids + ";" ;
         }
     }
 }

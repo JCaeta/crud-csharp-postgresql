@@ -2,24 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using template_csharp_postgresql.Entities;
+using template_csharp_postgresql.Models;
 //using Npgsql;
 
 namespace template_csharp_postgresql.Persistence.Repositories
 {
-    public class EntityBRepository<EntityB> : IRepository<EntityB>
-    where EntityB : template_csharp_postgresql.Entities.EntityB, new()
+    public class ModelBRepository<EntityB> : IRepository<EntityB>
+    where EntityB : template_csharp_postgresql.Models.ModelB, new()
     {
         private NpgsqlConnection connection;
         private IReadStrategy<EntityB> readStrategy;
-        public EntityBRepository(NpgsqlConnection connection)
+        public ModelBRepository(NpgsqlConnection connection)
         {
             this.connection = connection;
         }
 
         public EntityB create(EntityB item)
         {
-            string query = "insert into entities_b(name) values('" + item.Name + "') returning id;";
+            string query = "insert into models_b(name) values('" + item.Name + "') returning id;";
             NpgsqlCommand executor = new NpgsqlCommand(query, this.connection);
             int result = int.Parse(executor.ExecuteScalar().ToString());
             item.Id = result;
@@ -28,7 +28,7 @@ namespace template_csharp_postgresql.Persistence.Repositories
 
         public bool delete(EntityB item)
         {
-            string query = "delete from entities_b where id=" + item.Id + ";";
+            string query = "delete from models_b where id=" + item.Id + ";";
             try
             {
                 NpgsqlCommand executor = new NpgsqlCommand(query, this.connection);
@@ -53,7 +53,7 @@ namespace template_csharp_postgresql.Persistence.Repositories
 
         public bool update(EntityB item)
         {
-            string query = "update entities_b set name = '" + item.Name + "' where id=" + item.Id + ";";
+            string query = "update models_b set name = '" + item.Name + "' where id=" + item.Id + ";";
             NpgsqlCommand executor = new NpgsqlCommand(query, this.connection);
             try
             {

@@ -1,7 +1,7 @@
 ﻿
 namespace template_csharp_postgresql
 {
-    partial class UpdateEntityA
+    partial class FormUpdateModelA
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace template_csharp_postgresql
         {
             this.lblName = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
-            this.chkListEntititesB = new System.Windows.Forms.CheckedListBox();
+            this.chkListModelsB = new System.Windows.Forms.CheckedListBox();
             this.lblEntitiesB = new System.Windows.Forms.Label();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -53,22 +53,22 @@ namespace template_csharp_postgresql
             this.textBoxName.Size = new System.Drawing.Size(191, 23);
             this.textBoxName.TabIndex = 23;
             // 
-            // chkListEntititesB
+            // chkListModelsB
             // 
-            this.chkListEntititesB.FormattingEnabled = true;
-            this.chkListEntititesB.Location = new System.Drawing.Point(149, 67);
-            this.chkListEntititesB.Name = "chkListEntititesB";
-            this.chkListEntititesB.Size = new System.Drawing.Size(191, 112);
-            this.chkListEntititesB.TabIndex = 25;
+            this.chkListModelsB.FormattingEnabled = true;
+            this.chkListModelsB.Location = new System.Drawing.Point(149, 67);
+            this.chkListModelsB.Name = "chkListModelsB";
+            this.chkListModelsB.Size = new System.Drawing.Size(191, 112);
+            this.chkListModelsB.TabIndex = 25;
             // 
             // lblEntitiesB
             // 
             this.lblEntitiesB.AutoSize = true;
             this.lblEntitiesB.Location = new System.Drawing.Point(16, 67);
             this.lblEntitiesB.Name = "lblEntitiesB";
-            this.lblEntitiesB.Size = new System.Drawing.Size(118, 15);
+            this.lblEntitiesB.Size = new System.Drawing.Size(119, 15);
             this.lblEntitiesB.TabIndex = 26;
-            this.lblEntitiesB.Text = "Associated entities B:";
+            this.lblEntitiesB.Text = "Associated models B:";
             // 
             // buttonUpdate
             // 
@@ -90,7 +90,7 @@ namespace template_csharp_postgresql
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.cancel);
             // 
-            // UpdateEntityA
+            // FormUpdateModelA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -98,11 +98,11 @@ namespace template_csharp_postgresql
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.lblEntitiesB);
-            this.Controls.Add(this.chkListEntititesB);
+            this.Controls.Add(this.chkListModelsB);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.textBoxName);
-            this.Name = "UpdateEntityA";
-            this.Text = "UpdateEntityA";
+            this.Name = "FormUpdateModelA";
+            this.Text = "UpdateModelA";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,7 +112,7 @@ namespace template_csharp_postgresql
 
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.CheckedListBox chkListEntititesB;
+        private System.Windows.Forms.CheckedListBox chkListModelsB;
         private System.Windows.Forms.Label lblEntitiesB;
         private System.Windows.Forms.Button buttonUpdate;
         private System.Windows.Forms.Button buttonCancel;

@@ -1,77 +1,160 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using template_csharp_postgresql.Entities;
+using template_csharp_postgresql.Models;
 
 namespace template_csharp_postgresql.View.Mappers
 {
-    public class ViewMapEntityB
+    public class ViewMapModelB
     {
-        Dictionary<int, EntityB> dictIdEntitiesB;
-        Dictionary<int, int> dictListEntitiesBTracking; // key: entB id | value: index listEntitiesB
-        List<EntityB> listEntitiesB;
-        Dictionary<int, EntityB> dictIndexGridEntitiesB;
-        Dictionary<int, int> dictIdGridIndex;
-        Dictionary<int, int> dictIdListboxIndex;
-        Dictionary<int, EntityB> dictIndexListboxEntitiesB;
+        Dictionary<int, ModelB> dictIdModelsB;
+        Dictionary<int, ModelB> dictIndexGridModelB; // key: grid index | value: ModelB object
+        Dictionary<int, int> dictIdGridIndex; // key: ModelB id | value: grid index 
+        Dictionary<int, int> dictIdListboxIndex; // key: ModelB id | value: listbox index
+        Dictionary<int, ModelB> dictIndexListboxModelsB; // key: listbox index | value: ModelB object
 
-        public ViewMapEntityB()
+        public ViewMapModelB()
         {
-            this.dictIdEntitiesB = new Dictionary<int, EntityB>();
-            this.listEntitiesB = new List<EntityB>();
-            this.dictListEntitiesBTracking = new Dictionary<int, int>();
-            this.dictIndexGridEntitiesB = new Dictionary<int, EntityB>();
+            this.dictIdModelsB = new Dictionary<int, ModelB>();
+            this.dictIndexGridModelB = new Dictionary<int, ModelB>();
             this.dictIdGridIndex = new Dictionary<int, int>();
             this.dictIdListboxIndex = new Dictionary<int, int>();
-            this.dictIndexListboxEntitiesB = new Dictionary<int, EntityB>();
+            this.dictIndexListboxModelsB = new Dictionary<int, ModelB>();
         }
         
-        public void addEntityB(EntityB entityB, int indexGrid, int indexListbox)
+        public void addModelB(ModelB modelB, int indexGrid, int indexListbox)
         {
-            this.dictIdEntitiesB.Add(entityB.Id, entityB);
-            this.listEntitiesB.Add(entityB);
-            this.dictIndexGridEntitiesB.Add(indexGrid, entityB);
-            this.dictListEntitiesBTracking.Add(entityB.Id, this.listEntitiesB.Count - 1);
-            this.dictIdGridIndex.Add(entityB.Id, indexGrid);
-            this.dictIdListboxIndex.Add(entityB.Id, indexListbox);
-            this.dictIndexListboxEntitiesB.Add(indexListbox, entityB);
+            this.dictIdModelsB.Add(modelB.Id, modelB);
+            this.dictIndexGridModelB.Add(indexGrid, modelB);
+            this.dictIdGridIndex.Add(modelB.Id, indexGrid);
+            this.dictIdListboxIndex.Add(modelB.Id, indexListbox);
+            this.dictIndexListboxModelsB.Add(indexListbox, modelB);
         }
 
-        public List<EntityB> getEntitiesB()
+        public void addModelBGrid(ModelB modelB, int indexGrid)
         {
-            return this.listEntitiesB;
+            this.dictIdModelsB.Add(modelB.Id, modelB);
+            this.dictIndexGridModelB.Add(indexGrid, modelB);
+            this.dictIdGridIndex.Add(modelB.Id, indexGrid);
         }
 
-        public void deleteEntityB(EntityB entityB)
+        public void addModelBListbox(ModelB modelB, int indexListbox)
         {
-            this.dictIdEntitiesB.Remove(entityB.Id);
-            this.listEntitiesB.RemoveAt(this.dictListEntitiesBTracking[entityB.Id]);
-            this.dictListEntitiesBTracking.Remove(entityB.Id);
-            this.dictIndexGridEntitiesB.Remove(this.dictIdGridIndex[entityB.Id]);
-            this.dictIdGridIndex.Remove(entityB.Id);
-            this.dictIdListboxIndex.Remove(entityB.Id);
-            this.dictIndexListboxEntitiesB.Remove(entityB.Id);
+            this.dictIdListboxIndex.Add(modelB.Id, indexListbox);
+            this.dictIndexListboxModelsB.Add(indexListbox, modelB);
         }
 
-        public void deleteEntityB(int id)
+        public void deleteModelB(ModelB modelB)
         {
-            this.dictIdEntitiesB.Remove(id);
-            this.listEntitiesB.RemoveAt(this.dictListEntitiesBTracking[id]);
-            this.dictListEntitiesBTracking.Remove(id);
-            this.dictIndexGridEntitiesB.Remove(this.dictIdGridIndex[id]);
+            // 1) Delete model id
+            this.dictIdModelsB.Remove(modelB.Id);
+
+            // 2) Delete from grid dictionaries
+            int gridIndex = this.dictIdGridIndex[modelB.Id];
+            this.dictIndexGridModelB.Remove(gridIndex);
+            this.dictIdGridIndex.Remove(modelB.Id);
+            this.updateIndexesGrid(gridIndex);
+
+            // 3) Delete from listbox dictionaries
+            int listboxIndex = this.dictIdListboxIndex[modelB.Id];
+            this.dictIndexListboxModelsB.Remove(listboxIndex);
+            this.dictIdListboxIndex.Remove(modelB.Id);
+            this.updateIndexesListbox(listboxIndex);
+        }
+
+        private void updateIndexesGrid(int gridIndex)
+        {
+            // 1) Get keys and values to change
+            List<int> listKeys = new List<int>();
+            List<ModelB> listValues = new List<ModelB>();
+            foreach (int key in this.dictIndexGridModelB.Keys)
+            {
+                if (key > gridIndex)
+                {
+                    listValues.Add(this.dictIndexGridModelB[key]);
+                    listKeys.Add(key);
+                }
+            }
+
+            // 2) Remove old keys
+            for (int i = 0; i < listKeys.Count; i++)
+            {
+                this.dictIndexGridModelB.Remove(listKeys[i]);
+                this.dictIdGridIndex.Remove(listValues[i].Id);
+            }
+
+            // 3) Insert new keys
+            for (int i = 0; i < listKeys.Count; i++)
+            {
+                this.dictIndexGridModelB.Add(listKeys[i] - 1, listValues[i]);
+                this.dictIdGridIndex.Add(listValues[i].Id, listKeys[i] - 1);
+            }
+        }
+
+        public void updateModelB(ModelB modelB)
+        {
+            // 1) Update model id dictionary
+            this.dictIdModelsB[modelB.Id] = modelB;
+
+            // 2) Update listbox dictionary
+            int listboxIndex = this.dictIdListboxIndex[modelB.Id];
+            this.dictIndexListboxModelsB[listboxIndex] = modelB;
+
+            // 3) Update grid dictionary
+            int gridIndex = this.dictIdGridIndex[modelB.Id];
+            this.dictIndexGridModelB[gridIndex] = modelB;
+        }
+
+        private void updateIndexesListbox(int listboxIndex)
+        {
+            List<int> listKeys = new List<int>();
+            List<ModelB> listValues = new List<ModelB>();
+            foreach (int key in this.dictIndexListboxModelsB.Keys)
+            {
+                if (key > listboxIndex)
+                {
+                    listValues.Add(this.dictIndexListboxModelsB[key]);
+                    listKeys.Add(key);
+                }
+            }
+
+            for (int i = 0; i < listKeys.Count; i++)
+            {
+                this.dictIndexListboxModelsB.Remove(listKeys[i]);
+                this.dictIndexListboxModelsB.Add(listKeys[i] - 1, listValues[i]);
+
+                this.dictIdListboxIndex.Remove(listValues[i].Id);
+                this.dictIdListboxIndex.Add(listValues[i].Id, listKeys[i] - 1);
+            }
+        }
+
+        public void deleteModelB(int id)
+        {
+            // 1) Remove model id
+            this.dictIdModelsB.Remove(id);
+
+            // 2) Remove from grid dictionaries
+            int gridIndex = this.dictIdGridIndex[id];
+            this.dictIndexGridModelB.Remove(gridIndex);
             this.dictIdGridIndex.Remove(id);
+            this.updateIndexesGrid(gridIndex);
+
+            // 3) Remove from listbox dictionaries
+            int listboxIndex = this.dictIdListboxIndex[id];
+            this.dictIndexListboxModelsB.Remove(listboxIndex);
             this.dictIdListboxIndex.Remove(id);
-            this.dictIndexListboxEntitiesB.Remove(id);
+            this.updateIndexesListbox(listboxIndex);
+            
         }
 
-        public EntityB getEntityBByIndexGrid(int indexGrid)
+        public ModelB getModelBByIndexGrid(int indexGrid)
         {
-            return this.dictIndexGridEntitiesB[indexGrid];
+            return this.dictIndexGridModelB[indexGrid];
         }
 
-        public EntityB getEntityBByIndexListbox(int indexListbox)
+        public ModelB getModelBByIndexListbox(int indexListbox)
         {
-            return this.dictIndexListboxEntitiesB[indexListbox];
+            return this.dictIndexListboxModelsB[indexListbox];
         }
 
         public int getGridIndex(int id)
@@ -82,6 +165,19 @@ namespace template_csharp_postgresql.View.Mappers
         public int getListboxIndex(int id)
         {
             return this.dictIdListboxIndex[id];
+        }
+
+        public void clearGrid()
+        {
+            this.dictIndexGridModelB.Clear();
+            this.dictIdGridIndex.Clear();
+            this.dictIdModelsB.Clear();
+        }
+
+        public void clearListbox()
+        {
+            this.dictIdListboxIndex.Clear();
+            this.dictIndexListboxModelsB.Clear();
         }
     }
 }

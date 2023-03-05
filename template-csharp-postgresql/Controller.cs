@@ -2,140 +2,130 @@
 using System.Collections.Generic;
 using System.Text;
 using template_csharp_postgresql.Persistence;
-using template_csharp_postgresql.Entities;
+using template_csharp_postgresql.Models;
 using System.Data;
+using template_csharp_postgresql.Persistence.Repositories.ReadStrategiesModelB;
 
 namespace template_csharp_postgresql
 {
     public class Controller
     {
-        public void createEntityB(Form1 ui, string name)
+        public ModelB createModelB(string name)
         {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            EntityB entityB = new EntityB(name);
-            entityB = unitOfWork.createEntityB(entityB);
-            ui.loadEntityBOnUi(entityB);
+            ModelB modelB = new ModelB(name);
+            modelB = unitOfWork.createModelB(modelB);
             unitOfWork.disconnect();
+            return modelB;
         }
 
-        public void deleteEntityB(Form1 ui, EntityB entityB)
+        public bool deleteModelB(ModelB modelB)
         {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            bool result = unitOfWork.deleteEntityB(entityB.Id);
+            bool result = unitOfWork.deleteModelB(modelB.Id);
             unitOfWork.disconnect();
-            if (result)
-            {
-                ui.deleteEntityBFromUi(entityB.Id);
-            }else
-            {
-                ui.showWarning("Failed to delete item. Please check if the item is linked to any other entities before attempting to delete.");
-            }
+            return result;
         }
 
-        public void deleteEntityA(Form1 ui, int id)
+        public bool deleteModelA(int id)
         {
-            EntityA entityA = new EntityA(id);
+            ModelA modelA = new ModelA(id);
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            bool result = unitOfWork.deleteEntityA(entityA);
+            bool result = unitOfWork.deleteModelA(modelA);
             unitOfWork.disconnect();
+            return result;
 
-            if (result)
-            {
-                ui.deleteEntityAFromUi(id);
-            }
         }
 
-        public void updateEntityB(Form1 ui, int id, string name, int index)
+        public bool updateModelB(ModelB modelB)
         {
-            EntityB entityB = new EntityB(id, name);
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            if (unitOfWork.updateEntityB(entityB))
-            {
-                ui.replaceEntityBInGrid(index, id, name);
-            }
-
+            bool result = unitOfWork.updateModelB(modelB);
             unitOfWork.disconnect();
+            return result;
+
         }
 
-        public List<EntityB> getAllEntitiesB()
+        public List<ModelB> getAllModelsB()
         {
             DataTable data = new DataTable();
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            List<EntityB> entitiesB = unitOfWork.getAllEntitiesB();
+            List<ModelB> modelsB = unitOfWork.getAllModelsB();
             unitOfWork.disconnect();
 
-            return entitiesB;
+            return modelsB;
         }
 
-        public void createEntityA(Form1 ui, EntityA entityA)
+        public ModelA createModelA(ModelA modelA)
         {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            entityA = unitOfWork.createEntityA(entityA);
+            modelA = unitOfWork.createModelA(modelA);
             unitOfWork.disconnect();
 
-            ui.loadEntityAOnUi(entityA);
+            return modelA;
         }
 
 
-        public List<EntityA> getAllEntitiesA()
+        public List<ModelA> getAllModelsA()
         {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            List<EntityA> entitiesA = unitOfWork.getAllEntitiesA();
+            List<ModelA> modelsA = unitOfWork.getAllModelsA();
             unitOfWork.disconnect();
 
-            return entitiesA;
+            return modelsA;
         }
 
-        public void updateEntityA(Form1 ui, EntityA entityA)
+        public bool updateModelA(ModelA modelA)
         {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            bool result = unitOfWork.updateEntityA(entityA);
+            bool result = unitOfWork.updateModelA(modelA);
             unitOfWork.disconnect();
-
-            if (result)
-            {
-                ui.updateEntityAOnUi(entityA);
-            }
+            return result;
         }
 
-        public List<EntityA> readEntityAOption1(string entityBName)
+        public List<ModelA> readModelAOption1(string modelBName)
         {
-            // Read by EntityB name
+            // Read by ModelB name
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            List<EntityA> entitiesA = unitOfWork.readEntityAOption1(entityBName);
+            List<ModelA> modelsA = unitOfWork.readModelAOption1(modelBName);
             unitOfWork.disconnect();
-            return entitiesA;
-
+            return modelsA;
         }
 
-        public List<EntityA> readEntityAOption2(string entityAName)
+        public List<ModelA> readModelAOption2(string modelAName)
         {
-            // Read by EntityA name
+            // Read by ModelA name
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            List<EntityA> entitiesA = unitOfWork.readEntityAOption2(entityAName);
+            List<ModelA> modelsA = unitOfWork.readModelAOption2(modelAName);
             unitOfWork.disconnect();
-            return entitiesA;
-
+            return modelsA;
         }
 
-        public List<EntityA> readEntityAOption3(string entityAName, string entityBName)
+        public List<ModelA> readModelAOption3(string modelAName, string modelBName)
         {
-            // Read by EntityA name and EntityB name
+            // Read by ModelA name and ModelB name
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            List<EntityA> entitiesA = unitOfWork.readEntityAOption3(entityAName, entityBName);
+            List<ModelA> modelsA = unitOfWork.readModelAOption3(modelAName, modelBName);
             unitOfWork.disconnect();
-            return entitiesA;
+            return modelsA;
+        }
+
+        public List<ModelB> readModelBByName(string name)
+        {
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            return unitOfWork.readModelBByName(name);
         }
     }
 }

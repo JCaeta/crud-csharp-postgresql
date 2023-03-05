@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using template_csharp_postgresql;
 using template_csharp_postgresql.Persistence.Repositories;
-using template_csharp_postgresql.Entities;
-using template_csharp_postgresql.Persistence.Repositories.ReadStrategiesEntityB;
-using template_csharp_postgresql.Persistence.Repositories.ReadStrategiesEntityA;
+using template_csharp_postgresql.Models;
+using template_csharp_postgresql.Persistence.Repositories.ReadStrategiesModelB;
+using template_csharp_postgresql.Persistence.Repositories.ReadStrategiesModelA;
 
 namespace template_csharp_postgresql.Persistence
 {
@@ -35,106 +35,115 @@ namespace template_csharp_postgresql.Persistence
             return this.connection;
         }
 
-        public EntityB createEntityB(EntityB entityB)
+        public ModelB createModelB(ModelB modelB)
         {
-            EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection);
-            entityB = entityBRepository.create(entityB);
-            return entityB;
+            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
+            modelB = modelBRepository.create(modelB);
+            return modelB;
         }
 
-        public bool deleteEntityB(int id)
+        public bool deleteModelB(int id)
         {
 
-            EntityB entityB = new EntityB(id);
+            ModelB modelB = new ModelB(id);
             bool result = false;
 
-            EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection);
-            result = entityBRepository.delete(entityB);
+            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
+            result = modelBRepository.delete(modelB);
 
             return result;
         }
 
-        public bool updateEntityB(EntityB item)
+        public bool updateModelB(ModelB item)
         {
             bool result = false;
-            EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection);
-            result = entityBRepository.update(item);
+            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
+            result = modelBRepository.update(item);
             return result;
         }
 
-        public List<EntityB> getAllEntitiesB()
+        public List<ModelB> getAllModelsB()
         {
-            List<EntityB> entitiesB;
-            EntityBRepository<EntityB> entityBRepository = new EntityBRepository<EntityB>(this.connection);
-            ReadAllEntitiesB<EntityB> readStrategy = new ReadAllEntitiesB<EntityB>();
-            entityBRepository.setReadStrategy(readStrategy);
-            entitiesB = entityBRepository.read(new EntityB());
+            List<ModelB> entitiesB;
+            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
+            ReadAllModelsB<ModelB> readStrategy = new ReadAllModelsB<ModelB>();
+            modelBRepository.setReadStrategy(readStrategy);
+            entitiesB = modelBRepository.read(new ModelB());
 
             return entitiesB;
         }
 
-        public List<EntityA> getAllEntitiesA() {
+        public List<ModelA> getAllModelsA() {
 
-            List<EntityA> entitiesA;
-            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            ReadAllEntitiesA<EntityA> readStrategy = new ReadAllEntitiesA<EntityA>();
-            entityARepository.setReadStrategy(readStrategy);
-            entitiesA = entityARepository.read(new EntityA());
+            List<ModelA> entitiesA;
+            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
+            ReadAllModelsA<ModelA> readStrategy = new ReadAllModelsA<ModelA>();
+            modelARepository.setReadStrategy(readStrategy);
+            entitiesA = modelARepository.read(new ModelA());
 
             return entitiesA;
         }
 
-        public EntityA createEntityA(EntityA item)
+        public ModelA createModelA(ModelA item)
         {
-            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            entityARepository.create(item);
+            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
+            modelARepository.create(item);
 
             return item;
         }
 
-        public bool deleteEntityA(EntityA item)
+        public bool deleteModelA(ModelA item)
         {
-            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            return entityARepository.delete(item);
+            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
+            return modelARepository.delete(item);
         }
 
-        public bool updateEntityA(EntityA item)
+        public bool updateModelA(ModelA item)
         {
-            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            return entityARepository.update(item);
+            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
+            return modelARepository.update(item);
         }
 
-        public List<EntityA> readEntityAOption1(string entityBName)
+        public List<ModelA> readModelAOption1(string modelBName)
         {
-            // This option reads by EntityB name
-            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            ReadStrategy1<EntityA> readStrategy = new ReadStrategy1<EntityA>();
-            readStrategy.setFilter(entityBName);
-            entityARepository.setReadStrategy(readStrategy);
+            // This option reads by ModelB name
+            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
+            ReadStrategy1<ModelA> readStrategy = new ReadStrategy1<ModelA>();
+            readStrategy.setFilter(modelBName);
+            modelARepository.setReadStrategy(readStrategy);
 
-            return entityARepository.read(new EntityA());
+            return modelARepository.read(new ModelA());
         }
 
-        public List<EntityA> readEntityAOption2(string entityAName)
+        public List<ModelA> readModelAOption2(string modelAName)
         {
-            // This option reads by EntityA name
-            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            ReadStrategy2<EntityA> readStrategy = new ReadStrategy2<EntityA>();
-            readStrategy.setFilter(entityAName);
-            entityARepository.setReadStrategy(readStrategy);
+            // This option reads by ModelA name
+            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
+            ReadStrategy2<ModelA> readStrategy = new ReadStrategy2<ModelA>();
+            readStrategy.setFilter(modelAName);
+            modelARepository.setReadStrategy(readStrategy);
 
-            return entityARepository.read(new EntityA());
+            return modelARepository.read(new ModelA());
         }
 
-        public List<EntityA> readEntityAOption3(string entityAName, string entityBName)
+        public List<ModelA> readModelAOption3(string modelAName, string modelBName)
         {
-            // This option reads by EntityA name and EntityB name
-            EntityARepository<EntityA> entityARepository = new EntityARepository<EntityA>(this.connection);
-            ReadStrategy3<EntityA> readStrategy = new ReadStrategy3<EntityA>();
-            readStrategy.setFilter(entityAName, entityBName);
-            entityARepository.setReadStrategy(readStrategy);
+            // This option reads by ModelA name and ModelB name
+            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
+            ReadStrategy3<ModelA> readStrategy = new ReadStrategy3<ModelA>();
+            readStrategy.setFilter(modelAName, modelBName);
+            modelARepository.setReadStrategy(readStrategy);
 
-            return entityARepository.read(new EntityA());
+            return modelARepository.read(new ModelA());
+        }
+
+        public List<ModelB> readModelBByName(string name)
+        {
+            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
+            ReadByName<ModelB> readStrategy = new ReadByName<ModelB>();
+            readStrategy.setName(name);
+            modelBRepository.setReadStrategy(readStrategy);
+            return modelBRepository.read(new ModelB());
         }
     }
 }

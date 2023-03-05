@@ -1,7 +1,7 @@
 ﻿
 namespace template_csharp_postgresql
 {
-    partial class FormUpdateEntityB
+    partial class FormUpdateModelB
     {
         /// <summary>
         /// Required designer variable.

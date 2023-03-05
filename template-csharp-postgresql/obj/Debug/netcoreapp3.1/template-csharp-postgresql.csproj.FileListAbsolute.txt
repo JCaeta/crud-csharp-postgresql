@@ -1,6 +1,6 @@
-D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template_csharp_postgresql.Form1.resources
-D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template_csharp_postgresql.FormUpdateEntityB.resources
-D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template_csharp_postgresql.UpdateEntityA.resources
+D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template_csharp_postgresql.FormMain.resources
+D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template_csharp_postgresql.FormUpdateModelA.resources
+D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template_csharp_postgresql.FormUpdateModelB.resources
 D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template-csharp-postgresql.csproj.GenerateResource.cache
 D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template-csharp-postgresql.GeneratedMSBuildEditorConfig.editorconfig
 D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template-csharp-postgresql.AssemblyInfoInputs.cache

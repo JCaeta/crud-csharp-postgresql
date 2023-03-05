@@ -2,41 +2,41 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using template_csharp_postgresql.Entities;
+using template_csharp_postgresql.Models;
 
 namespace template_csharp_postgresql.Persistence.Repositories
 {
-    public class EntityARepository<EntityA> : IRepository<EntityA>
-    where EntityA : template_csharp_postgresql.Entities.EntityA
+    public class ModelARepository<ModelA> : IRepository<ModelA>
+    where ModelA : template_csharp_postgresql.Models.ModelA
     {
         private NpgsqlConnection connection;
-        private IReadStrategy<EntityA> readStrategy;
+        private IReadStrategy<ModelA> readStrategy;
 
-        public EntityARepository(NpgsqlConnection connection)
+        public ModelARepository(NpgsqlConnection connection)
         {
             this.connection = connection;
         }
 
-        public EntityA create(EntityA item)
+        public ModelA create(ModelA item)
         {
             using (var transaction = connection.BeginTransaction())
                 //{
                 try
                 {
-                    using (var command = new NpgsqlCommand("INSERT INTO entities_a (name) VALUES (@name) returning id;", connection, transaction))
+                    using (var command = new NpgsqlCommand("INSERT INTO models_a (name) VALUES (@name) returning id;", connection, transaction))
                     {
                         command.Parameters.AddWithValue("@name", item.Name);
                         item.Id = System.Int32.Parse(command.ExecuteScalar().ToString());
                     }
 
-                    if (item.EntitiesB != null)
+                    if (item.ModelsB != null)
                     {
-                        foreach (var entityB in item.EntitiesB)
+                        foreach (var modelB in item.ModelsB)
                         {
-                            using (var command = new NpgsqlCommand("INSERT INTO rel_entities_a_entities_b (id_entity_a, id_entity_b) VALUES (@id_entity_a, @id_entity_b);", connection, transaction))
+                            using (var command = new NpgsqlCommand("INSERT INTO rel_mod_a_mod_b (id_model_a, id_model_b) VALUES (@id_model_a, @id_model_b);", connection, transaction))
                             {
-                                command.Parameters.AddWithValue("@id_entity_a", item.Id);
-                                command.Parameters.AddWithValue("@id_entity_b", entityB.Id);
+                                command.Parameters.AddWithValue("@id_model_a", item.Id);
+                                command.Parameters.AddWithValue("@id_model_b", modelB.Id);
                                 command.ExecuteNonQuery();
                             }
                         }
@@ -53,15 +53,15 @@ namespace template_csharp_postgresql.Persistence.Repositories
             //}
         }
 
-        public bool delete(EntityA item)
+        public bool delete(ModelA item)
         {
             bool result = false;
             using (NpgsqlTransaction transaction = this.connection.BeginTransaction())
             {
                 try
                 {
-                    string query1 = "delete from rel_entities_a_entities_b where id_entity_a = " + item.Id;
-                    string query2 = "delete from entities_a where id = " + item.Id;
+                    string query1 = "delete from rel_mod_a_mod_b where id_model_a = " + item.Id;
+                    string query2 = "delete from models_a where id = " + item.Id;
                     string fullQuery = query1 + ";" + query2 + ";";
                     NpgsqlCommand executor = new NpgsqlCommand(fullQuery, this.connection, transaction);
                     var reader = executor.ExecuteReader();
@@ -77,32 +77,32 @@ namespace template_csharp_postgresql.Persistence.Repositories
             return result;
         }
 
-        public void setReadStrategy(IReadStrategy<EntityA> readStrategy)
+        public void setReadStrategy(IReadStrategy<ModelA> readStrategy)
         {
             this.readStrategy = readStrategy;
         }
 
-        public List<EntityA> read(EntityA filter)
+        public List<ModelA> read(ModelA filter)
         {
             return this.readStrategy.read(this.connection);
         }
 
-        public EntityA readOne(EntityA filter)
+        public ModelA readOne(ModelA filter)
         {
             throw new NotImplementedException();
         }
 
-        public bool update(EntityA item)
+        public bool update(ModelA item)
         {
             bool result = false;
 
             // Create queries
-            string query1 = "delete from rel_entities_a_entities_b where id_entity_a = " + item.Id + ";";
-            string query2 = "update entities_a set name = '" + item.Name + "' where id = " + item.Id + ";";
+            string query1 = "delete from rel_mod_a_mod_b where id_model_a = " + item.Id + ";";
+            string query2 = "update models_a set name = '" + item.Name + "' where id = " + item.Id + ";";
             string query3 = "";
-            foreach(EntityB entityB in item.EntitiesB)
+            foreach(ModelB modelB in item.ModelsB)
             {
-                string qry = "insert into rel_entities_a_entities_b(id_entity_a, id_entity_b) values (" + item.Id + ", " + entityB.Id + ");";
+                string qry = "insert into rel_mod_a_mod_b(id_model_a, id_model_b) values (" + item.Id + ", " + modelB.Id + ");";
                 query3 += qry;
             }
             
