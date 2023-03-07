@@ -20,7 +20,7 @@ namespace template_csharp_postgresql.Persistence.Repositories
         public ModelA create(ModelA item)
         {
             using (var transaction = connection.BeginTransaction())
-                //{
+            {
                 try
                 {
                     using (var command = new NpgsqlCommand("INSERT INTO models_a (name) VALUES (@name) returning id;", connection, transaction))
@@ -50,7 +50,7 @@ namespace template_csharp_postgresql.Persistence.Repositories
                     transaction.Rollback();
                     throw;
                 }
-            //}
+            }
         }
 
         public bool delete(ModelA item)

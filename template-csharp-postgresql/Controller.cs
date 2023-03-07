@@ -71,7 +71,6 @@ namespace template_csharp_postgresql
             return modelA;
         }
 
-
         public List<ModelA> getAllModelsA()
         {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();

@@ -63,7 +63,6 @@ namespace template_csharp_postgresql.View
                 this.ui.gridReadModelA.Rows[count].Cells["id"].Value = modelA.Id;
                 this.ui.gridReadModelA.Rows[count].Cells["name"].Value = modelA.Name;
                 this.viewMapModelA.addModelA(modelA, count);
-                //modelsB.AddRange(modelA.ModelsB);
                 count++;
             }
         }
@@ -117,13 +116,7 @@ namespace template_csharp_postgresql.View
         {
             int rowIndex = this.ui.gridReadModelB.CurrentCell.RowIndex;
             return this.viewMapModelB.getModelBByIndexGrid(rowIndex);
-            //int id = int.Parse(this.ui.gridReadModelB.Rows[row_index].Cells["id"].Value.ToString());
-            //ModelB modelB = this.viewMapModelB.get
-
-            //string name = this.ui.gridReadModelB.Rows[row_index].Cells["name"].Value.ToString();
-
         }
-
 
         public void deleteModelB(int id)
         {
@@ -289,14 +282,5 @@ namespace template_csharp_postgresql.View
 
             this.viewMapModelB.updateModelB(modelB);
         }
-
-        //public void loadModelAOnUi(ModelA modelA)
-        //{
-        //    int index = this.gridReadModelA.Rows.Count;
-        //    this.gridReadModelA.Rows.Add();
-        //    this.gridReadModelA.Rows[index].Cells["id"].Value = modelA.Id;
-        //    this.gridReadModelA.Rows[index].Cells["name"].Value = modelA.Name;
-        //    this.viewMapModelA.addModelA(modelA, index);
-        //}
     }
 }

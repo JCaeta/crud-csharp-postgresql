@@ -14,18 +14,13 @@ namespace template_csharp_postgresql
     public partial class FormMain : Form
     {
         private Controller controller;
-        private ViewMapModelA viewMapModelA;
-        private ViewMapModelB viewMapModelB;
         private ViewHelper viewHelper;
 
         public FormMain()
         {
             InitializeComponent();
             this.viewHelper = new ViewHelper(this);
-
             this.controller = new Controller();
-            this.viewMapModelA = new ViewMapModelA();
-            this.viewMapModelB = new ViewMapModelB();
 
             this.viewHelper.initializeForm();
             this.readData();
@@ -47,6 +42,27 @@ namespace template_csharp_postgresql
             this.viewHelper.createModelB(modelB);
         }
 
+        private void readModelB(object sender, EventArgs e)
+        {
+            string name = this.viewHelper.getNameToFilterModelB();
+            List<ModelB> modelsB;
+            if (name != "")
+            {
+                // Option 0
+                modelsB = this.controller.readModelBByName(name);
+            }
+            else
+            {
+                // Option 1
+                modelsB = this.controller.getAllModelsB();
+            }
+            this.viewHelper.setModelsBGrid(modelsB);
+        }
+
+        private void updateModelB(object sender, EventArgs e)
+        {
+            this.viewHelper.openFormUpdateModelB(this.controller);
+        }
 
         private void deleteModelB(object sender, EventArgs e)
         {
@@ -65,54 +81,11 @@ namespace template_csharp_postgresql
             }
         }
 
-        private void updateModelB(object sender, EventArgs e)
-        {
-            this.viewHelper.openFormUpdateModelB(this.controller);
-        }
-
-
         private void createModelA(object sender, EventArgs e)
         {
             ModelA modelA = this.viewHelper.getModelAToCreate();
             modelA = this.controller.createModelA(modelA);
             this.viewHelper.createModelA(modelA);
-        }
-
-        private void clickModelA(object sender, DataGridViewCellEventArgs e)
-        {
-            this.viewHelper.loadModelsBAssociatedModelsA(e.RowIndex);
-        }
-
-        private void deleteModelA(object sender, EventArgs e)
-        {
-            
-            if (this.gridReadModelA.CurrentCell != null)
-            {
-                int id = this.viewHelper.getSelectedModelAId();
-                if (this.controller.deleteModelA(id))
-                {
-                    this.viewHelper.deleteModelA(id);
-                }else
-                {
-                    MessageBox.Show("The ModelA object could not be deleted");
-                }
-            }
-            else
-            {
-                MessageBox.Show("No row selected. Please select a row and try again.");
-            }
-        }
-
-        private void updateModelA(object sender, EventArgs e)
-        {
-            if (this.gridReadModelA.CurrentCell != null)
-            {
-                this.viewHelper.openFormUpdateModelA(this.controller);
-            }
-            else // If there aren't selected rows
-            {
-                MessageBox.Show("No row selected. Please select a row and try again.");
-            }
         }
 
         private void readModelA(object sender, EventArgs e)
@@ -125,10 +98,11 @@ namespace template_csharp_postgresql
 
             // 1) Get option
             string option = "";
-            if(this.textBoxNameFilterA.Text != "")
+            if (this.textBoxNameFilterA.Text != "")
             {
                 option += "1";
-            }else
+            }
+            else
             {
                 option += "0";
             }
@@ -136,7 +110,8 @@ namespace template_csharp_postgresql
             if (this.textBoxModBNameFilterA.Text != "")
             {
                 option += "1";
-            }else
+            }
+            else
             {
                 option += "0";
             }
@@ -171,26 +146,47 @@ namespace template_csharp_postgresql
             this.viewHelper.setModelsA(modelsA);
         }
 
-        private void clearModelAGrid(object sender, EventArgs e)
+        private void updateModelA(object sender, EventArgs e)
         {
-            this.viewHelper.clearModelAGrid();
+            if (this.gridReadModelA.CurrentCell != null)
+            {
+                this.viewHelper.openFormUpdateModelA(this.controller);
+            }
+            else // If there aren't selected rows
+            {
+                MessageBox.Show("No row selected. Please select a row and try again.");
+            }
         }
 
-        private void readModelB(object sender, EventArgs e)
+        private void deleteModelA(object sender, EventArgs e)
         {
-            string name = this.viewHelper.getNameToFilterModelB();
-            List<ModelB> modelsB;
-            if (name != "")
+
+            if (this.gridReadModelA.CurrentCell != null)
             {
-                // Option 0
-                modelsB = this.controller.readModelBByName(name);
+                int id = this.viewHelper.getSelectedModelAId();
+                if (this.controller.deleteModelA(id))
+                {
+                    this.viewHelper.deleteModelA(id);
+                }
+                else
+                {
+                    MessageBox.Show("The ModelA object could not be deleted");
+                }
             }
             else
             {
-                // Option 1
-                modelsB = this.controller.getAllModelsB();
+                MessageBox.Show("No row selected. Please select a row and try again.");
             }
-            this.viewHelper.setModelsBGrid(modelsB);
+        }
+
+        private void clickModelA(object sender, DataGridViewCellEventArgs e)
+        {
+            this.viewHelper.loadModelsBAssociatedModelsA(e.RowIndex);
+        }
+
+        private void clearModelAGrid(object sender, EventArgs e)
+        {
+            this.viewHelper.clearModelAGrid();
         }
 
         private void clearModelBGrid(object sender, EventArgs e)

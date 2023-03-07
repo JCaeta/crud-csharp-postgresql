@@ -11,8 +11,6 @@ namespace template_csharp_postgresql.View.Mappers
         Dictionary<int, ModelA> dictIndexGridModelA; // key: grid index | value: ModelA
         Dictionary<int, int> dictIdGridIndex; // key: ModelA id| value: grid index
         Dictionary<int, ModelB> dictAllModelsB; // key: ModelB id | value: ModelB
-        //Dictionary<int, int> dictListModelsBTracking; // key: ModelB id | value: index modelsB
-        //List<ModelB> modelsB;
 
         public ViewMapModelA()
         {
@@ -20,8 +18,6 @@ namespace template_csharp_postgresql.View.Mappers
             this.dictIndexGridModelA = new Dictionary<int, ModelA>();
             this.dictIdGridIndex = new Dictionary<int, int>();
             this.dictAllModelsB = new Dictionary<int, ModelB>();
-            //this.modelsB = new List<ModelB>();
-            //this.dictListModelsBTracking = new Dictionary<int, int>();
         }
 
         public void Clear()
@@ -52,8 +48,6 @@ namespace template_csharp_postgresql.View.Mappers
 
         public void addModelB(ModelB modelB)
         {
-            //this.modelsB.Add(modelB);
-            //this.dictListModelsBTracking.Add(modelB.Id, this.modelsB.Count - 1);
             this.dictAllModelsB.Add(modelB.Id, modelB);
         }
 
