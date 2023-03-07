@@ -20,24 +20,22 @@ namespace template_csharp_postgresql
             return modelB;
         }
 
-        public bool deleteModelB(ModelB modelB)
+        public List<ModelB> readAllModelsB()
         {
+            DataTable data = new DataTable();
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            bool result = unitOfWork.deleteModelB(modelB.Id);
+            List<ModelB> modelsB = unitOfWork.readAllModelsB();
             unitOfWork.disconnect();
-            return result;
+
+            return modelsB;
         }
 
-        public bool deleteModelA(int id)
+        public List<ModelB> readModelBByName(string name)
         {
-            ModelA modelA = new ModelA(id);
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            bool result = unitOfWork.deleteModelA(modelA);
-            unitOfWork.disconnect();
-            return result;
-
+            return unitOfWork.readModelBByName(name);
         }
 
         public bool updateModelB(ModelB modelB)
@@ -47,18 +45,15 @@ namespace template_csharp_postgresql
             bool result = unitOfWork.updateModelB(modelB);
             unitOfWork.disconnect();
             return result;
-
         }
 
-        public List<ModelB> getAllModelsB()
+        public bool deleteModelB(ModelB modelB)
         {
-            DataTable data = new DataTable();
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            List<ModelB> modelsB = unitOfWork.getAllModelsB();
+            bool result = unitOfWork.deleteModelB(modelB.Id);
             unitOfWork.disconnect();
-
-            return modelsB;
+            return result;
         }
 
         public ModelA createModelA(ModelA modelA)
@@ -71,23 +66,14 @@ namespace template_csharp_postgresql
             return modelA;
         }
 
-        public List<ModelA> getAllModelsA()
+        public List<ModelA> readAllModelsA()
         {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            List<ModelA> modelsA = unitOfWork.getAllModelsA();
+            List<ModelA> modelsA = unitOfWork.readAllModelsA();
             unitOfWork.disconnect();
 
             return modelsA;
-        }
-
-        public bool updateModelA(ModelA modelA)
-        {
-            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
-            unitOfWork.connect();
-            bool result = unitOfWork.updateModelA(modelA);
-            unitOfWork.disconnect();
-            return result;
         }
 
         public List<ModelA> readModelAOption1(string modelBName)
@@ -120,11 +106,23 @@ namespace template_csharp_postgresql
             return modelsA;
         }
 
-        public List<ModelB> readModelBByName(string name)
+        public bool deleteModelA(int id)
+        {
+            ModelA modelA = new ModelA(id);
+            PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
+            unitOfWork.connect();
+            bool result = unitOfWork.deleteModelA(modelA);
+            unitOfWork.disconnect();
+            return result;
+        }
+
+        public bool updateModelA(ModelA modelA)
         {
             PostgreSQLUnitOfWork unitOfWork = new PostgreSQLUnitOfWork();
             unitOfWork.connect();
-            return unitOfWork.readModelBByName(name);
+            bool result = unitOfWork.updateModelA(modelA);
+            unitOfWork.disconnect();
+            return result;
         }
     }
 }

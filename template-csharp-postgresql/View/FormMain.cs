@@ -28,10 +28,10 @@ namespace template_csharp_postgresql
 
         private void readData()
         {
-            List<ModelA> modelsA = this.controller.getAllModelsA();
+            List<ModelA> modelsA = this.controller.readAllModelsA();
             this.viewHelper.setModelsA(modelsA);
 
-            List<ModelB> modelsB = this.controller.getAllModelsB();
+            List<ModelB> modelsB = this.controller.readAllModelsB();
             this.viewHelper.setModelsB(modelsB);
         }
 
@@ -54,7 +54,7 @@ namespace template_csharp_postgresql
             else
             {
                 // Option 1
-                modelsB = this.controller.getAllModelsB();
+                modelsB = this.controller.readAllModelsB();
             }
             this.viewHelper.setModelsBGrid(modelsB);
         }
@@ -120,7 +120,7 @@ namespace template_csharp_postgresql
             List<ModelA> modelsA = new List<ModelA>();
             if (option == "00") // Option 0
             {
-                modelsA = this.controller.getAllModelsA();
+                modelsA = this.controller.readAllModelsA();
             }
             else
             {

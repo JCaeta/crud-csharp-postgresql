@@ -7,10 +7,10 @@ namespace template_csharp_postgresql.View.Mappers
 {
     public class ViewMapModelA
     {
-        Dictionary<int, ModelA> dictIdModelA;
-        Dictionary<int, ModelA> dictIndexGridModelA; // key: grid index | value: ModelA
-        Dictionary<int, int> dictIdGridIndex; // key: ModelA id| value: grid index
-        Dictionary<int, ModelB> dictAllModelsB; // key: ModelB id | value: ModelB
+        private Dictionary<int, ModelA> dictIdModelA;
+        private Dictionary<int, ModelA> dictIndexGridModelA; // key: grid index | value: ModelA
+        private Dictionary<int, int> dictIdGridIndex; // key: ModelA id| value: grid index
+        private Dictionary<int, ModelB> dictAllModelsB; // key: ModelB id | value: ModelB
 
         public ViewMapModelA()
         {

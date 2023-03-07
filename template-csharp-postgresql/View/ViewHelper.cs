@@ -191,7 +191,6 @@ namespace template_csharp_postgresql.View
         {
             int rowIndex = this.ui.gridReadModelA.CurrentCell.RowIndex;
             return int.Parse(this.ui.gridReadModelA.Rows[rowIndex].Cells["id"].Value.ToString());
-
         }
 
         public void deleteModelA(int id)

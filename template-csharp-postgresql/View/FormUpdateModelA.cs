@@ -13,19 +13,14 @@ namespace template_csharp_postgresql
     public partial class FormUpdateModelA : Form
     {
         private Controller controller;
-        //private FormMain mainUi;
         private ViewHelper viewHelper;
         private ModelA modelA;
         private List<ModelB> noAssocModelsB;
         private Dictionary<int, ModelB> dictModelsB;
 
-
-        //public FormUpdateModelA(FormMain ui, Controller controller, ModelA modelA, List<ModelB> noAssocModelsB)
         public FormUpdateModelA(ViewHelper viewHelper, Controller controller, ModelA modelA, List<ModelB> noAssocModelsB)
         {
             InitializeComponent();
-
-            //this.mainUi = ui;
             this.viewHelper = viewHelper;
             this.modelA = modelA;
             this.controller = controller;
@@ -58,8 +53,6 @@ namespace template_csharp_postgresql
             {
                 this.modelA.ModelsB.Add(this.dictModelsB[index]);
             }
-
-            //this.controller.updateModelA(this.mainUi, modelA);
 
             if(this.controller.updateModelA(modelA))
             {

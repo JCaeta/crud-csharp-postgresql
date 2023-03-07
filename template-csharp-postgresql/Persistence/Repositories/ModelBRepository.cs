@@ -7,17 +7,17 @@ using template_csharp_postgresql.Models;
 
 namespace template_csharp_postgresql.Persistence.Repositories
 {
-    public class ModelBRepository<EntityB> : IRepository<EntityB>
-    where EntityB : template_csharp_postgresql.Models.ModelB, new()
+    public class ModelBRepository<ModelB> : IRepository<ModelB>
+    where ModelB : template_csharp_postgresql.Models.ModelB, new()
     {
         private NpgsqlConnection connection;
-        private IReadStrategy<EntityB> readStrategy;
+        private IReadStrategy<ModelB> readStrategy;
         public ModelBRepository(NpgsqlConnection connection)
         {
             this.connection = connection;
         }
 
-        public EntityB create(EntityB item)
+        public ModelB create(ModelB item)
         {
             string query = "insert into models_b(name) values('" + item.Name + "') returning id;";
             NpgsqlCommand executor = new NpgsqlCommand(query, this.connection);
@@ -26,7 +26,7 @@ namespace template_csharp_postgresql.Persistence.Repositories
             return item;
         }
 
-        public bool delete(EntityB item)
+        public bool delete(ModelB item)
         {
             string query = "delete from models_b where id=" + item.Id + ";";
             try
@@ -41,17 +41,17 @@ namespace template_csharp_postgresql.Persistence.Repositories
             }
         }
 
-        public List<EntityB> read(EntityB filter)
+        public List<ModelB> read(ModelB filter)
         {
             return this.readStrategy.read(this.connection);
         }
 
-        public EntityB readOne(EntityB item)
+        public ModelB readOne(ModelB item)
         {
             throw new NotImplementedException();
         }
 
-        public bool update(EntityB item)
+        public bool update(ModelB item)
         {
             string query = "update models_b set name = '" + item.Name + "' where id=" + item.Id + ";";
             NpgsqlCommand executor = new NpgsqlCommand(query, this.connection);
@@ -65,7 +65,7 @@ namespace template_csharp_postgresql.Persistence.Repositories
             }
         }
 
-        public void setReadStrategy(IReadStrategy<EntityB> readStrategy)
+        public void setReadStrategy(IReadStrategy<ModelB> readStrategy)
         {
             this.readStrategy = readStrategy;
         }

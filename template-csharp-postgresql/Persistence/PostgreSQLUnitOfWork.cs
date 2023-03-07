@@ -30,16 +30,39 @@ namespace template_csharp_postgresql.Persistence
             this.connection.Close();
         }
 
-        public NpgsqlConnection getConnection()
-        {
-            return this.connection;
-        }
-
         public ModelB createModelB(ModelB modelB)
         {
             ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
             modelB = modelBRepository.create(modelB);
             return modelB;
+        }
+
+        public List<ModelB> readAllModelsB()
+        {
+            List<ModelB> entitiesB;
+            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
+            ReadAllModelsB<ModelB> readStrategy = new ReadAllModelsB<ModelB>();
+            modelBRepository.setReadStrategy(readStrategy);
+            entitiesB = modelBRepository.read(new ModelB());
+
+            return entitiesB;
+        }
+
+        public List<ModelB> readModelBByName(string name)
+        {
+            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
+            ReadByName<ModelB> readStrategy = new ReadByName<ModelB>();
+            readStrategy.setName(name);
+            modelBRepository.setReadStrategy(readStrategy);
+            return modelBRepository.read(new ModelB());
+        }
+
+        public bool updateModelB(ModelB modelB)
+        {
+            bool result = false;
+            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
+            result = modelBRepository.update(modelB);
+            return result;
         }
 
         public bool deleteModelB(int id)
@@ -53,27 +76,15 @@ namespace template_csharp_postgresql.Persistence
 
             return result;
         }
-
-        public bool updateModelB(ModelB item)
+        public ModelA createModelA(ModelA modelA)
         {
-            bool result = false;
-            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
-            result = modelBRepository.update(item);
-            return result;
+            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
+            modelARepository.create(modelA);
+
+            return modelA;
         }
 
-        public List<ModelB> getAllModelsB()
-        {
-            List<ModelB> entitiesB;
-            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
-            ReadAllModelsB<ModelB> readStrategy = new ReadAllModelsB<ModelB>();
-            modelBRepository.setReadStrategy(readStrategy);
-            entitiesB = modelBRepository.read(new ModelB());
-
-            return entitiesB;
-        }
-
-        public List<ModelA> getAllModelsA() {
+        public List<ModelA> readAllModelsA() {
 
             List<ModelA> entitiesA;
             ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
@@ -82,26 +93,6 @@ namespace template_csharp_postgresql.Persistence
             entitiesA = modelARepository.read(new ModelA());
 
             return entitiesA;
-        }
-
-        public ModelA createModelA(ModelA item)
-        {
-            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
-            modelARepository.create(item);
-
-            return item;
-        }
-
-        public bool deleteModelA(ModelA item)
-        {
-            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
-            return modelARepository.delete(item);
-        }
-
-        public bool updateModelA(ModelA item)
-        {
-            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
-            return modelARepository.update(item);
         }
 
         public List<ModelA> readModelAOption1(string modelBName)
@@ -137,13 +128,16 @@ namespace template_csharp_postgresql.Persistence
             return modelARepository.read(new ModelA());
         }
 
-        public List<ModelB> readModelBByName(string name)
+        public bool updateModelA(ModelA modelA)
         {
-            ModelBRepository<ModelB> modelBRepository = new ModelBRepository<ModelB>(this.connection);
-            ReadByName<ModelB> readStrategy = new ReadByName<ModelB>();
-            readStrategy.setName(name);
-            modelBRepository.setReadStrategy(readStrategy);
-            return modelBRepository.read(new ModelB());
+            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
+            return modelARepository.update(modelA);
+        }
+
+        public bool deleteModelA(ModelA modelA)
+        {
+            ModelARepository<ModelA> modelARepository = new ModelARepository<ModelA>(this.connection);
+            return modelARepository.delete(modelA);
         }
     }
 }
