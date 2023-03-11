@@ -1,0 +1,4 @@
+SERVER:asdsaads
+USER_ID:adsdasadsafsfa
+PASSWORD:fafasafs
+DATABASE_NAME:afsafs

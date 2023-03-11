@@ -12,12 +12,24 @@ namespace template_csharp_postgresql.Persistence
 {
     public class PostgreSQLUnitOfWork : IUnitOfWork
     {
-        private string connectionString = 
-            "Server = " + Globals.SERVER + 
-            "; User Id = " + Globals.USER_ID + 
-            "; Password = " + Globals.PASSWORD + 
-            "; Database = " + Globals.DATABASE_NAME;
+        //private string connectionString = 
+        //"Server = " + Globals.SERVER + 
+        //"; User Id = " + Globals.USER_ID + 
+        //"; Password = " + Globals.PASSWORD + 
+        //"; Database = " + Globals.DATABASE_NAME;
+
+
+        private string connectionString;
         private NpgsqlConnection connection ;
+
+        public PostgreSQLUnitOfWork(Dictionary<string, string> databaseInformation)
+        {
+            this.connectionString =
+                "Server = " + databaseInformation["SERVER"] +
+                "; User Id = " + databaseInformation["USER_ID"] +
+                "; Password = " + databaseInformation["PASSWORD"] +
+                "; Database = " + databaseInformation["DATABASE_NAME"];
+        }
 
         public void connect()
         {
@@ -28,6 +40,23 @@ namespace template_csharp_postgresql.Persistence
         public void disconnect()
         {
             this.connection.Close();
+        }
+
+
+        public bool checkStringConnection()
+        {
+            try
+            {
+                this.connection = new NpgsqlConnection(this.connectionString);
+                this.connection.Open();
+                this.connection.Close();
+                return true;
+
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
 
         public ModelB createModelB(ModelB modelB)

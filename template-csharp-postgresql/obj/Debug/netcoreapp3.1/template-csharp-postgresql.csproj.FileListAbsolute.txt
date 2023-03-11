@@ -97,3 +97,4 @@ D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-
 D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template-csharp-postgresql.dll
 D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template-csharp-postgresql.pdb
 D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template-csharp-postgresql.genruntimeconfig.cache
+D:\documents storage\repositories\Reusables\template-csharp-postgresql\template-csharp-postgresql\obj\Debug\netcoreapp3.1\template_csharp_postgresql.View.FormDatabaseInformation.resources

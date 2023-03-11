@@ -23,10 +23,32 @@ namespace template_csharp_postgresql
             this.controller = new Controller();
 
             this.viewHelper.initializeForm();
-            this.readData();
+            if (!this.controller.loadDatabaseInformation())
+            {
+                MessageBox.Show("The database information is incorrect or has " +
+                    "not been configured. Please go to 'Configuration' to enter " +
+                    "your database information.");
+                this.viewHelper.enableForm(false);
+            }
+            else
+            {
+                this.readData();
+            }
         }
 
-        private void readData()
+        private void setDatabaseConfiguration(object sender, EventArgs e)
+        {
+            FormDatabaseInformation formConfiguration = new FormDatabaseInformation(this.controller);
+            formConfiguration.ShowDialog();
+
+            if (this.controller.isDatabaseInformationConfigured())
+            {
+                this.viewHelper.enableForm(true);
+                this.readData();
+            }
+        }
+
+        public void readData()
         {
             List<ModelA> modelsA = this.controller.readAllModelsA();
             this.viewHelper.setModelsA(modelsA);

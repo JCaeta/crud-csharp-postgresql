@@ -102,6 +102,7 @@ namespace template_csharp_postgresql
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.textBoxName);
             this.Name = "FormUpdateModelA";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UpdateModelA";
             this.ResumeLayout(false);
             this.PerformLayout();

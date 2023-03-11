@@ -44,7 +44,7 @@ namespace template_csharp_postgresql
             this.textBoxNameFilterB = new System.Windows.Forms.TextBox();
             this.lblSearchNameModelB1 = new System.Windows.Forms.Label();
             this.buttonReadModelB = new System.Windows.Forms.Button();
-            this.buttondelete = new System.Windows.Forms.Button();
+            this.buttonDeleteModelB = new System.Windows.Forms.Button();
             this.buttonUpdateModelB = new System.Windows.Forms.Button();
             this.buttonReadModelA = new System.Windows.Forms.Button();
             this.lblSearchNameModelA = new System.Windows.Forms.Label();
@@ -60,11 +60,14 @@ namespace template_csharp_postgresql
             this.groupInsert = new System.Windows.Forms.GroupBox();
             this.groupReadUpdateDelete = new System.Windows.Forms.GroupBox();
             this.lblModelASearch = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridReadModelB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridReadModelA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridModelsBAssociatedModelsA)).BeginInit();
             this.groupInsert.SuspendLayout();
             this.groupReadUpdateDelete.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCreateModelA
@@ -207,15 +210,15 @@ namespace template_csharp_postgresql
             this.buttonReadModelB.UseVisualStyleBackColor = true;
             this.buttonReadModelB.Click += new System.EventHandler(this.readModelB);
             // 
-            // buttondelete
+            // buttonDeleteModelB
             // 
-            this.buttondelete.Location = new System.Drawing.Point(343, 287);
-            this.buttondelete.Name = "buttondelete";
-            this.buttondelete.Size = new System.Drawing.Size(75, 23);
-            this.buttondelete.TabIndex = 17;
-            this.buttondelete.Text = "Delete";
-            this.buttondelete.UseVisualStyleBackColor = true;
-            this.buttondelete.Click += new System.EventHandler(this.deleteModelB);
+            this.buttonDeleteModelB.Location = new System.Drawing.Point(343, 287);
+            this.buttonDeleteModelB.Name = "buttonDeleteModelB";
+            this.buttonDeleteModelB.Size = new System.Drawing.Size(75, 23);
+            this.buttonDeleteModelB.TabIndex = 17;
+            this.buttonDeleteModelB.Text = "Delete";
+            this.buttonDeleteModelB.UseVisualStyleBackColor = true;
+            this.buttonDeleteModelB.Click += new System.EventHandler(this.deleteModelB);
             // 
             // buttonUpdateModelB
             // 
@@ -342,7 +345,7 @@ namespace template_csharp_postgresql
             this.groupInsert.Controls.Add(this.labelModelB);
             this.groupInsert.Controls.Add(this.labelModelA);
             this.groupInsert.Controls.Add(this.buttonCreateModelA);
-            this.groupInsert.Location = new System.Drawing.Point(6, 5);
+            this.groupInsert.Location = new System.Drawing.Point(6, 59);
             this.groupInsert.Name = "groupInsert";
             this.groupInsert.Size = new System.Drawing.Size(570, 252);
             this.groupInsert.TabIndex = 31;
@@ -364,14 +367,14 @@ namespace template_csharp_postgresql
             this.groupReadUpdateDelete.Controls.Add(this.textBoxNameFilterA);
             this.groupReadUpdateDelete.Controls.Add(this.lblModelASearch);
             this.groupReadUpdateDelete.Controls.Add(this.buttonUpdateModelB);
-            this.groupReadUpdateDelete.Controls.Add(this.buttondelete);
+            this.groupReadUpdateDelete.Controls.Add(this.buttonDeleteModelB);
             this.groupReadUpdateDelete.Controls.Add(this.buttonReadModelB);
             this.groupReadUpdateDelete.Controls.Add(this.lblSearchNameModelB1);
             this.groupReadUpdateDelete.Controls.Add(this.textBoxNameFilterB);
             this.groupReadUpdateDelete.Controls.Add(this.gridReadModelA);
             this.groupReadUpdateDelete.Controls.Add(this.lblModelBSearch);
             this.groupReadUpdateDelete.Controls.Add(this.gridReadModelB);
-            this.groupReadUpdateDelete.Location = new System.Drawing.Point(6, 275);
+            this.groupReadUpdateDelete.Location = new System.Drawing.Point(6, 317);
             this.groupReadUpdateDelete.Name = "groupReadUpdateDelete";
             this.groupReadUpdateDelete.Size = new System.Drawing.Size(569, 471);
             this.groupReadUpdateDelete.TabIndex = 32;
@@ -387,14 +390,34 @@ namespace template_csharp_postgresql
             this.lblModelASearch.TabIndex = 19;
             this.lblModelASearch.Text = "Model A filter";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configurationToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(610, 24);
+            this.menuStrip1.TabIndex = 33;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // configurationToolStripMenuItem
+            // 
+            this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
+            this.configurationToolStripMenuItem.Text = "Configuration";
+            this.configurationToolStripMenuItem.Click += new System.EventHandler(this.setDatabaseConfiguration);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 779);
+            this.ClientSize = new System.Drawing.Size(610, 838);
             this.Controls.Add(this.groupReadUpdateDelete);
             this.Controls.Add(this.groupInsert);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CRUD";
             ((System.ComponentModel.ISupportInitialize)(this.gridReadModelB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridReadModelA)).EndInit();
@@ -403,31 +426,23 @@ namespace template_csharp_postgresql
             this.groupInsert.PerformLayout();
             this.groupReadUpdateDelete.ResumeLayout(false);
             this.groupReadUpdateDelete.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button buttonCreateModelA;
         private System.Windows.Forms.Label labelModelA;
         private System.Windows.Forms.Label labelModelB;
-        private System.Windows.Forms.Button buttonCreateModelB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelModelBAssociated;
         private System.Windows.Forms.Label lblModelBSearch;
         private System.Windows.Forms.Label lblSearchNameModelB1;
-        private System.Windows.Forms.Button buttonReadModelB;
-        private System.Windows.Forms.Button buttondelete;
-        private System.Windows.Forms.Button buttonUpdateModelB;
-        private System.Windows.Forms.Button buttonReadModelA;
         private System.Windows.Forms.Label lblSearchNameModelA;
         private System.Windows.Forms.Label lblAssociatedModelsB;
-        private System.Windows.Forms.Button buttonUpdateModelA;
-        private System.Windows.Forms.Button buttonDeleteModelA;
         private System.Windows.Forms.Label lblSearchNameModelB0;
-        private System.Windows.Forms.Button buttonClearModelA;
-        private System.Windows.Forms.Button buttonClearModelB;
         private System.Windows.Forms.GroupBox groupInsert;
         private System.Windows.Forms.GroupBox groupReadUpdateDelete;
         private System.Windows.Forms.Label lblModelASearch;
@@ -440,5 +455,17 @@ namespace template_csharp_postgresql
         public System.Windows.Forms.TextBox textBoxNameFilterA;
         public System.Windows.Forms.TextBox textBoxModBNameFilterA;
         public System.Windows.Forms.TextBox textBoxNameModelB;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
+        public System.Windows.Forms.Button buttonCreateModelA;
+        public System.Windows.Forms.Button buttonDeleteModelB;
+        public System.Windows.Forms.Button buttonUpdateModelB;
+        public System.Windows.Forms.Button buttonReadModelA;
+        public System.Windows.Forms.Button buttonUpdateModelA;
+        public System.Windows.Forms.Button buttonDeleteModelA;
+        public System.Windows.Forms.Button buttonClearModelA;
+        public System.Windows.Forms.Button buttonCreateModelB;
+        public System.Windows.Forms.Button buttonReadModelB;
+        public System.Windows.Forms.Button buttonClearModelB;
     }
 }

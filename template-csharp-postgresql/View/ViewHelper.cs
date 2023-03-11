@@ -91,7 +91,6 @@ namespace template_csharp_postgresql.View
                 count++;
             }
         }
-
         private void setModelsBListbox(List<ModelB> modelsB)
         {
             // This method set only the listbox ModelB objects
@@ -281,5 +280,39 @@ namespace template_csharp_postgresql.View
 
             this.viewMapModelB.updateModelB(modelB);
         }
+
+        public void openFormConfiguration(Controller controller)
+        {
+            FormDatabaseInformation formConfiguration = new FormDatabaseInformation(controller);
+            formConfiguration.Show();
+        }
+
+        public void enableForm(bool state)
+        {
+            // Model A
+            this.ui.textBoxNameModelA.Enabled = state;
+            this.ui.checkedListBoxModelsB.Enabled = state;
+            this.ui.buttonCreateModelA.Enabled = state;
+            this.ui.textBoxNameFilterA.Enabled = state;
+            this.ui.textBoxModBNameFilterA.Enabled = state;
+            this.ui.buttonReadModelA.Enabled = state;
+            this.ui.buttonClearModelA.Enabled = state;
+            this.ui.buttonDeleteModelA.Enabled = state;
+            this.ui.buttonUpdateModelA.Enabled = state;
+
+            // ModelB
+            this.ui.textBoxNameModelB.Enabled = state;
+            this.ui.textBoxNameFilterB.Enabled = state;
+            this.ui.buttonCreateModelB.Enabled = state;
+            this.ui.textBoxNameFilterB.Enabled = state;
+            this.ui.buttonReadModelB.Enabled = state;
+            this.ui.buttonClearModelB.Enabled = state;
+            this.ui.gridReadModelB.Enabled = state;
+            this.ui.buttonUpdateModelB.Enabled = state;
+            this.ui.buttonDeleteModelB.Enabled = state;
+
+        }
+
+
     }
 }
