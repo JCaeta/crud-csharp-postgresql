@@ -35,7 +35,6 @@ namespace template_csharp_postgresql
                 this.readData();
             }
         }
-
         private void setDatabaseConfiguration(object sender, EventArgs e)
         {
             FormDatabaseInformation formConfiguration = new FormDatabaseInformation(this.controller);

@@ -94,6 +94,7 @@ namespace template_csharp_postgresql
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(362, 239);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonUpdate);
@@ -103,7 +104,7 @@ namespace template_csharp_postgresql
             this.Controls.Add(this.textBoxName);
             this.Name = "FormUpdateModelA";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UpdateModelA";
+            this.Text = "Update Model A";
             this.ResumeLayout(false);
             this.PerformLayout();
 

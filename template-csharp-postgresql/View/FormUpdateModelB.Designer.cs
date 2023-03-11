@@ -71,17 +71,18 @@ namespace template_csharp_postgresql
             this.labelName.TabIndex = 3;
             this.labelName.Text = "Name: ";
             // 
-            // FormUpdateEntityB
+            // FormUpdateModelB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(249, 134);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonUpdate);
-            this.Name = "FormUpdateEntityB";
-            this.Text = "UpdateEntityB";
+            this.Name = "FormUpdateModelB";
+            this.Text = "Update Model B";
             this.ResumeLayout(false);
             this.PerformLayout();
 

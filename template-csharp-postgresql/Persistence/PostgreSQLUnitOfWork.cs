@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using template_csharp_postgresql;
 using template_csharp_postgresql.Persistence.Repositories;
 using template_csharp_postgresql.Models;
 using template_csharp_postgresql.Persistence.Repositories.ReadStrategiesModelB;
@@ -12,13 +11,6 @@ namespace template_csharp_postgresql.Persistence
 {
     public class PostgreSQLUnitOfWork : IUnitOfWork
     {
-        //private string connectionString = 
-        //"Server = " + Globals.SERVER + 
-        //"; User Id = " + Globals.USER_ID + 
-        //"; Password = " + Globals.PASSWORD + 
-        //"; Database = " + Globals.DATABASE_NAME;
-
-
         private string connectionString;
         private NpgsqlConnection connection ;
 

@@ -135,10 +135,11 @@ namespace template_csharp_postgresql.View
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.cancel);
             // 
-            // FormConfiguration
+            // FormDatabaseInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(349, 313);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
@@ -151,7 +152,7 @@ namespace template_csharp_postgresql.View
             this.Controls.Add(this.textBoxUserId);
             this.Controls.Add(this.textBoxServer);
             this.Controls.Add(this.labelConfig);
-            this.Name = "FormConfiguration";
+            this.Name = "FormDatabaseInformation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormConfiguration";
             this.ResumeLayout(false);
