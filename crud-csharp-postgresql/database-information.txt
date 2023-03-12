@@ -1,0 +1,4 @@
+SERVER:localhost
+USER_ID:postgres
+PASSWORD:mypassword
+DATABASE_NAME:CSharpPostgreSql
